@@ -1,3 +1,5 @@
+import 'package:alpha_protocol/master_clue.dart';
+import 'package:alpha_protocol/quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'themes.dart' as Theme;
@@ -47,9 +49,11 @@ class CustomRadio<T> extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class options extends StatefulWidget {
-  int index;
-  options({required this.index});
+  int i;
+  int ms_clue;
+  options({required this.i, required this.ms_clue});
   @override
   _optionsState createState() => _optionsState();
 }
@@ -74,7 +78,6 @@ class _optionsState extends State<options> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -86,22 +89,25 @@ class _optionsState extends State<options> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+                margin: EdgeInsets.only(bottom: 100, top: 100),
+                child: Text("Please Select an Option")),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("Skip Clue"),
+                Text("Skip 2 Clues"),
                 Container(
                   margin: EdgeInsets.only(left: 10),
                   child: CustomRadio<String>(
-                  value: "Skip Clue",
-                  groupValue: _selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedValue = value!;
-                    });
-                    showSnackBar(context, value!);
-                  },
-                ),
+                    value: "0",
+                    groupValue: _selectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedValue = value!;
+                      });
+                      // showSnackBar(context, value!);
+                    },
+                  ),
                 )
               ],
             ),
@@ -110,13 +116,13 @@ class _optionsState extends State<options> {
               children: [
                 Text("Add Timer"),
                 CustomRadio<String>(
-                  value: "Add Timer",
+                  value: "1",
                   groupValue: _selectedValue,
                   onChanged: (value) {
                     setState(() {
                       _selectedValue = value!;
                     });
-                    showSnackBar(context, value!);
+                    // showSnackBar(context, value!);
                   },
                 ),
               ],
@@ -128,26 +134,34 @@ class _optionsState extends State<options> {
                 Container(
                   margin: EdgeInsets.only(left: 55),
                   child: CustomRadio<String>(
-                  value: "None",
-                  groupValue: _selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedValue = value!;
-                    });
-                    showSnackBar(context, value!);
-                  },
-                ),
+                    value: "2",
+                    groupValue: _selectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedValue = value!;
+                      });
+                      // showSnackBar(context, value!);
+                    },
+                  ),
                 )
               ],
             ),
             Container(
-              margin: const EdgeInsets.only(top: 400),
+              margin: const EdgeInsets.only(top: 200),
               child: ElevatedButton(
                 style: Theme.button1,
                 onPressed: () {
-                  showSnackBar(context, "HI");
+                  // showSnackBar(context, _selectedValue);
+                  if (_selectedValue == '0') {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => master_clue(ms_clue: widget.ms_clue)));
+                  } else if (_selectedValue == '1') {
+                  } else {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => quiz_page(otp: '', i: widget.i)));
+                  }
                 },
-                child: Text("Hi"),
+                child: Text("Submit"),
               ),
             )
           ],

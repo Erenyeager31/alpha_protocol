@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         // '/': (context) => options(),
         // '/test' : (context) => testPage(),
         // '/intro': (context) => start_page(),
-        '/quiz_page': (context) => quiz_page(otp: '1',),
+        '/quiz_page': (context) => quiz_page(otp: '1',i: 0,),
         // '/master_clue': (context) => master_clue(),
       },
     );

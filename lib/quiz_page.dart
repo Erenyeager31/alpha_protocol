@@ -24,7 +24,9 @@ import 'data.dart' as Data;
 
 class quiz_page extends StatefulWidget {
   String otp;
-  quiz_page({required this.otp});
+  int i;
+  int ms_clue = 0;
+  quiz_page({required this.otp, required this.i});
 
   @override
   _quiz_pageState createState() => _quiz_pageState();
@@ -79,7 +81,7 @@ class _quiz_pageState extends State<quiz_page> {
     timer = Timer.periodic(Duration(seconds: 1), (_) {
       if (sec == 1) {
         timer.cancel();
-        test2();
+        // test2();
         Navigator.of(context).pop();
         showSnackBar(context, "Time over !");
       }
@@ -111,12 +113,12 @@ class _quiz_pageState extends State<quiz_page> {
       if (ScanResult == Data.quizItems[quizIndex][index + 1].answer) {
         // showSnackBar(context, index);
         print(index);
-        if (index == 1) {
+        if (index == 1 || index == 3) {
           showSnackBar(context,
-              "Congrats you have solved ${index+1} clues and are now ELigible for a Master Clue");
+              "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
           Timer(Duration(seconds: 5), () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => options(index: index)));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => options(i: index,ms_clue: widget.ms_clue,)));
           });
         } else {
           showSnackBar(context, 'Clue Obtained !');
@@ -131,24 +133,22 @@ class _quiz_pageState extends State<quiz_page> {
           // Navigator.of(context).pop();
           print(returnTime(mainSec - sec));
           try {
-            http.Response resp = await http.post(
-              Uri.parse('https://alphaprotocol.herokuapp.com/ap/addscr'),
-              headers: <String, String>{
-                'Content-Type': 'application/json; charset=UTF-8',
-              },
-              body: jsonEncode([
-                {
-                  "otp": widget.otp,
-                  "level": index,
-                  "time": double.parse(returnTime(mainSec - sec)),
-                  // "minute": returnTime(mainSec - sec)[1],
-                  // "second": returnTime(mainSec - sec)[0]
-                }
-              ]),
-            );
-
-            print(index);
-            showSnackBar(context, index);
+            // http.Response resp = await http.post(
+            //   Uri.parse('https://alphaprotocol.herokuapp.com/ap/addscr'),
+            //   headers: <String, String>{
+            //     'Content-Type': 'application/json; charset=UTF-8',
+            //   },
+            //   body: jsonEncode([
+            //     {
+            //       "otp": widget.otp,
+            //       "level": index,
+            //       "time": double.parse(returnTime(mainSec - sec)),
+            //       // "minute": returnTime(mainSec - sec)[1],
+            //       // "second": returnTime(mainSec - sec)[0]
+            //     }
+            //   ]),
+            // );
+            showSnackBar(context, "Final Page");
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     finalPage(img: Data.quizItems[quizIndex][index].link)));
@@ -176,29 +176,30 @@ class _quiz_pageState extends State<quiz_page> {
   }
 
   // testing function nothing imp
-  Future<void> test2() async {
-    try {
-      http.Response resp = await http.post(
-        Uri.parse('https://alphaprotocol.herokuapp.com/ap/addscr'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode([
-          {
-            "otp": widget.otp,
-            "level": index,
-            "time": double.parse(returnTime(mainSec - sec)),
-          }
-        ]),
-      );
-    } on SocketException catch (e) {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => errorPage(
-              otp: widget.otp,
-              level: index,
-              time: double.parse(returnTime(mainSec - sec)))));
-    }
-  }
+  // Future<void> test2() async {
+  //   try {
+  //     http.Response resp = await http.post(
+  //       Uri.parse('https://alphaprotocol.herokuapp.com/ap/addscr'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //       body: jsonEncode([
+  //         {
+  //           "otp": widget.otp,
+  //           "level": index,
+  //           "time": double.parse(returnTime(mainSec - sec)),
+  //         }
+  //       ]),
+  //     );
+  //   } on SocketException catch (e) {
+  //     Navigator.of(context).push(MaterialPageRoute(
+  //         builder: (context) => errorPage(
+  //             otp: widget.otp,
+  //             level: index,
+  //             time: double.parse(returnTime(mainSec - sec)))));
+  //   }
+  // }
+
 
   //disable screenshots
 
@@ -213,6 +214,11 @@ class _quiz_pageState extends State<quiz_page> {
     disableCapture();
     countTimer();
     print(widget.otp);
+    if (widget.otp == '') {
+      index = widget.i + 1;
+      widget.ms_clue++;
+    }
+
     // quizIndex = int.parse(widget.otp[3]) -1 ;
 
     //! commented the above line and added the below code

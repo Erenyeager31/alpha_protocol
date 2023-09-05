@@ -1,4 +1,4 @@
-import 'package:alpha_protocol/master_clue.dart';
+import 'package:alpha_protocol/options.dart';
 import 'package:flutter/material.dart';
 // import 'package:hunt/homePage.dart';
 // import 'package:hunt/quizPage.dart';
@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
       title: 'Treasure Hunt',
       initialRoute: '/',
       routes: {
-        // '/': (context) => home_page(),
-        '/': (context) => master_clue(),
+        '/': (context) => home_page(),
+        // '/': (context) => options(),
         // '/test' : (context) => testPage(),
         // '/intro': (context) => start_page(),
         '/quiz_page': (context) => quiz_page(otp: '1',),

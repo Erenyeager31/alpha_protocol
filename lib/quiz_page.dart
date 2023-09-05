@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:alpha_protocol/master_clue.dart';
+import 'package:alpha_protocol/options.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +22,9 @@ import 'data.dart' as Data;
 // import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 // import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-
-
 class quiz_page extends StatefulWidget {
   String otp;
   quiz_page({required this.otp});
-
 
   @override
   _quiz_pageState createState() => _quiz_pageState();
@@ -80,12 +77,11 @@ class _quiz_pageState extends State<quiz_page> {
   // countdown timer function
   void countTimer() {
     timer = Timer.periodic(Duration(seconds: 1), (_) {
-
-      if(sec==1){
+      if (sec == 1) {
         timer.cancel();
         test2();
         Navigator.of(context).pop();
-        showSnackBar(context,"Time over !");
+        showSnackBar(context, "Time over !");
       }
       setState(() {
         sec--;
@@ -94,20 +90,17 @@ class _quiz_pageState extends State<quiz_page> {
   }
 
   // reduce time by 30 sec
-  void reduceTime(){
-
-    if(sec<=30){
+  void reduceTime() {
+    if (sec <= 30) {
       setState(() {
-        sec=2;
+        sec = 2;
       });
-    }else{
+    } else {
       setState(() {
-        sec-=30;
+        sec -= 30;
       });
     }
-
   }
-
 
   // BarCode scanning Function
   Future<void> scanBarCode() async {
@@ -116,17 +109,28 @@ class _quiz_pageState extends State<quiz_page> {
           '#FFF44336', "Cancel", true, ScanMode.BARCODE);
       if (!mounted) return;
       if (ScanResult == Data.quizItems[quizIndex][index + 1].answer) {
-        showSnackBar(context, 'Clue Obtained !$index');
-        showSnackBar(context, index);
-        setState(() {
-          index += 1;
-        });
+        // showSnackBar(context, index);
+        print(index);
+        if (index == 1) {
+          showSnackBar(context,
+              "Congrats you have solved ${index+1} clues and are now ELigible for a Master Clue");
+          Timer(Duration(seconds: 5), () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => options(index: index)));
+          });
+        } else {
+          showSnackBar(context, 'Clue Obtained !');
+          setState(() {
+            index += 1;
+          });
+        }
 
+        // add logic for the options page here
         if (index == noQuiz) {
           timer.cancel();
           // Navigator.of(context).pop();
           print(returnTime(mainSec - sec));
-          try{
+          try {
             http.Response resp = await http.post(
               Uri.parse('https://alphaprotocol.herokuapp.com/ap/addscr'),
               headers: <String, String>{
@@ -136,44 +140,29 @@ class _quiz_pageState extends State<quiz_page> {
                 {
                   "otp": widget.otp,
                   "level": index,
-                  "time": double.parse(returnTime(mainSec-sec)),
+                  "time": double.parse(returnTime(mainSec - sec)),
                   // "minute": returnTime(mainSec - sec)[1],
                   // "second": returnTime(mainSec - sec)[0]
                 }
               ]),
             );
 
-            if(index == 2){
-              // Navigator.of(context).push(MaterialPageRoute(
-              //   builder: (context) =>
-              //       finalPage(img: Data.quizItems[quizIndex][index].link)));
-
-                // Navigator.pushNamed(context, '/master_clue',);
-                Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                    master_clue()));
-            }
-            else{
-                print(index);
-                showSnackBar(context, index);
-                Navigator.of(context).push(MaterialPageRoute(
+            print(index);
+            showSnackBar(context, index);
+            Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     finalPage(img: Data.quizItems[quizIndex][index].link)));
-            }
-            
-
-          }on SocketException catch (e) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
-                errorPage(otp : widget.otp,
-                    level:index,
-                    time:double.parse(returnTime(mainSec-sec)))));
+          } on SocketException catch (e) {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => errorPage(
+                    otp: widget.otp,
+                    level: index,
+                    time: double.parse(returnTime(mainSec - sec)))));
           }
-
         }
-      } else if (ScanResult=='-1') {
+      } else if (ScanResult == '-1') {
         print('test bro');
-
-      }else{
+      } else {
         print(ScanResult);
         print(ScanResult.runtimeType);
         reduceTime();
@@ -188,7 +177,7 @@ class _quiz_pageState extends State<quiz_page> {
 
   // testing function nothing imp
   Future<void> test2() async {
-    try{
+    try {
       http.Response resp = await http.post(
         Uri.parse('https://alphaprotocol.herokuapp.com/ap/addscr'),
         headers: <String, String>{
@@ -198,19 +187,17 @@ class _quiz_pageState extends State<quiz_page> {
           {
             "otp": widget.otp,
             "level": index,
-            "time": double.parse(returnTime(mainSec-sec)),
+            "time": double.parse(returnTime(mainSec - sec)),
           }
         ]),
       );
-
-    }on SocketException catch (e) {
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
-          errorPage(otp : widget.otp,
-              level:index,
-              time:double.parse(returnTime(mainSec-sec)))));
+    } on SocketException catch (e) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => errorPage(
+              otp: widget.otp,
+              level: index,
+              time: double.parse(returnTime(mainSec - sec)))));
     }
-
-
   }
 
   //disable screenshots
@@ -220,11 +207,9 @@ class _quiz_pageState extends State<quiz_page> {
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   }
 
-
   // actual app code
   @override
   void initState() {
-
     disableCapture();
     countTimer();
     print(widget.otp);
@@ -288,9 +273,10 @@ class _quiz_pageState extends State<quiz_page> {
                     child: Padding(
                   padding: EdgeInsets.all(12.0),
                   // child : Image.network(Data.quizItems[0][index].link)
-                      child : new Image(
-                        image: new NetworkImageWithRetry(Data.quizItems[quizIndex][index].link),
-                        ),
+                  child: new Image(
+                    image: new NetworkImageWithRetry(
+                        Data.quizItems[quizIndex][index].link),
+                  ),
                   // child: CachedNetworkImage(
                   //   imageUrl: Data.quizItems[quizIndex][index].link,
                   //   placeholder: (context, url) => CircularProgressIndicator(),

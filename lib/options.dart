@@ -47,12 +47,14 @@ class CustomRadio<T> extends StatelessWidget {
   }
 }
 
-class master_clue extends StatefulWidget {
+class options extends StatefulWidget {
+  int index;
+  options({required this.index});
   @override
-  _master_clueState createState() => _master_clueState();
+  _optionsState createState() => _optionsState();
 }
 
-class _master_clueState extends State<master_clue> {
+class _optionsState extends State<options> {
   String _selectedValue = "None";
 
   void showSnackBar(BuildContext context, text) {
@@ -72,6 +74,7 @@ class _master_clueState extends State<master_clue> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

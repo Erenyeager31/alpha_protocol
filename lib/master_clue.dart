@@ -1,3 +1,4 @@
+import 'package:alpha_protocol/quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'dart:async';
@@ -41,7 +42,8 @@ class _master_clueState extends State<master_clue> {
       // if (!mounted) return;
       if (ScanResult == Data.quizItems[3][0].answer) {
           // showSnackBar(context, "Correct");
-          
+          Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => quiz_page(otp: '', i: 3)));
       } else if (ScanResult == '-1') {
         print('test bro');
       } else {

@@ -113,7 +113,7 @@ class _quiz_pageState extends State<quiz_page> {
       if (ScanResult == Data.quizItems[quizIndex][index + 1].answer) {
         // showSnackBar(context, index);
         print(index);
-        if (index == 1 || index == 3) {
+        if (index == 1 || index == 4) {
           showSnackBar(context,
               "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
           Timer(Duration(seconds: 5), () {
@@ -215,6 +215,7 @@ class _quiz_pageState extends State<quiz_page> {
     countTimer();
     print(widget.otp);
     if (widget.otp == '') {
+      showSnackBar(context, "here ${widget.i}");
       index = widget.i + 1;
       widget.ms_clue++;
     }
@@ -247,6 +248,7 @@ class _quiz_pageState extends State<quiz_page> {
 
   @override
   Widget build(BuildContext context) {
+    showSnackBar(context, index);
     return WillPopScope(
       onWillPop: () async {
         return false;

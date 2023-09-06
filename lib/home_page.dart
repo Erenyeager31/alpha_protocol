@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_import
 
 import 'dart:convert';
 
@@ -56,7 +56,7 @@ class _home_pageState extends State<home_page> {
     // Navigator.of(context).pop();
     print("yaha dekho $otp.text");
     // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>quiz_page(otp : otp.text)));
-    Navigator.pushNamed(context, '/quiz_page', arguments: otp.text);
+    Navigator.pushNamed(context, '/quiz_page', arguments: otp.text,);
     // if(resp.statusCode==200){
     //   Navigator.of(context).pop();
     //   // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>quizPage(otp : otp.text)));

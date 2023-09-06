@@ -15,33 +15,106 @@ import 'finalPage.dart';
 import 'main.dart';
 import 'package:http/http.dart' as http;
 import 'data.dart' as Data;
+import 'themes.dart' as Theme;
 
-// unused imports
-// import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
-// import 'package:flutter_countdown_timer/current_remaining_time.dart';
-// import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
-// import 'package:flutter_spinkit/flutter_spinkit.dart';
+class TimerController {
+  late Timer timer;
+  int remainingTime;
+
+  TimerController(this.remainingTime);
+
+  void startTimer(void Function() onTimerTick) {
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (remainingTime <= 0) {
+        timer.cancel();
+        // Handle timer completion if needed
+      } else {
+        remainingTime--;
+        onTimerTick();
+      }
+    });
+  }
+
+  void cancelTimer() {
+    timer.cancel();
+  }
+}
 
 class quiz_page extends StatefulWidget {
   String otp;
-  int i;
+  // int i;
   int ms_clue = 0;
-  quiz_page({required this.otp, required this.i});
+  quiz_page({
+    required this.otp,
+  });
 
   @override
   _quiz_pageState createState() => _quiz_pageState();
 }
 
+class CustomRadio<T> extends StatelessWidget {
+  final T value;
+  final T? groupValue;
+  final ValueChanged<T?> onChanged;
+
+  CustomRadio({
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onChanged(value);
+      },
+      child: Container(
+        width: 24.0,
+        height: 24.0,
+        margin: EdgeInsets.all(8.0), // Add margin between Radio buttons
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.white, // Color for unselected Radio button
+            width: 2.0,
+          ),
+        ),
+        child: Center(
+          child: groupValue == value
+              ? Container(
+                  width: 12.0,
+                  height: 12.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white, // Color for selected Radio button
+                  ),
+                )
+              : null,
+        ),
+      ),
+    );
+  }
+}
+
 class _quiz_pageState extends State<quiz_page> {
   // Clues indexing
+  String _selectedValue = "None";
   int index = 0;
   int noQuiz = 8; //length -1
   late int quizIndex;
+  late TimerController timerController;
 
   //timer
   int mainSec = 1800; //1800
   int sec = 1800;
   late Timer timer;
+
+  void onIndexChanged(int newIndex){
+    setState((){
+      index = newIndex;
+    });
+  }
 
   //Snackbar
   void showSnackBar(BuildContext context, text) {
@@ -78,15 +151,20 @@ class _quiz_pageState extends State<quiz_page> {
 
   // countdown timer function
   void countTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_) {
-      if (sec == 1) {
-        timer.cancel();
-        // test2();
-        Navigator.of(context).pop();
-        showSnackBar(context, "Time over !");
-      }
+    // timer = Timer.periodic(Duration(seconds: 1), (_) {
+    //   if (sec == 1) {
+    //     timer.cancel();
+    //     // test2();
+    //     Navigator.of(context).pop();
+    //     showSnackBar(context, "Time over !");
+    //   }
+    //   setState(() {
+    //     sec--;
+    //   });
+    // });
+    timerController.startTimer(() {
       setState(() {
-        sec--;
+        sec = timerController.remainingTime;
       });
     });
   }
@@ -104,6 +182,25 @@ class _quiz_pageState extends State<quiz_page> {
     }
   }
 
+  void navigateToOptions() async {
+    final selectedRemainingTime = await Navigator.of(context).push<int>(
+      MaterialPageRoute(
+        builder: (context) => options(
+          i: index,
+          ms_clue: widget.ms_clue,
+          timerController: sec,
+          onIndexChanged: onIndexChanged,
+        ),
+      ),
+    );
+    if (selectedRemainingTime != null) {
+      setState(() {
+        sec = selectedRemainingTime;
+      });
+    }
+    // ... Rest of your code ...
+  }
+
   // BarCode scanning Function
   Future<void> scanBarCode() async {
     try {
@@ -113,13 +210,103 @@ class _quiz_pageState extends State<quiz_page> {
       if (ScanResult == Data.quizItems[quizIndex][index + 1].answer) {
         // showSnackBar(context, index);
         print(index);
-        if (index == 1 || index == 4) {
+        if (index == 1 || index == 3) {
           showSnackBar(context,
               "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
           Timer(Duration(seconds: 5), () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => options(i: index,ms_clue: widget.ms_clue,)));
+            // Navigator.of(context).push(
+            //     MaterialPageRoute(builder: (context) => options(i: index,ms_clue: widget.ms_clue,timerController: sec,)));
+
+            //!This functions works such that when context is popped from the options or other pages the value of 
+            //! index is updated by using the function onIndexChanges as defined above 
+            //! and the remaining time is returned as it is or can be modified within the master_clue page
+            navigateToOptions();
+
           });
+
+          //   Column(
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Container(
+          //         margin: EdgeInsets.only(bottom: 100, top: 100),
+          //         child: Text("Please Select an Option")),
+          //     Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //       children: [
+          //         Text("Skip 2 Clues"),
+          //         Container(
+          //           margin: EdgeInsets.only(left: 10),
+          //           child: CustomRadio<String>(
+          //             value: "0",
+          //             groupValue: _selectedValue,
+          //             onChanged: (value) {
+          //               setState(() {
+          //                 _selectedValue = value!;
+          //               });
+          //               // showSnackBar(context, value!);
+          //             },
+          //           ),
+          //         )
+          //       ],
+          //     ),
+          //     Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //       children: [
+          //         Text("Add Timer"),
+          //         CustomRadio<String>(
+          //           value: "1",
+          //           groupValue: _selectedValue,
+          //           onChanged: (value) {
+          //             setState(() {
+          //               _selectedValue = value!;
+          //             });
+          //             // showSnackBar(context, value!);
+          //           },
+          //         ),
+          //       ],
+          //     ),
+          //     Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //       children: [
+          //         Text("None"),
+          //         Container(
+          //           margin: EdgeInsets.only(left: 55),
+          //           child: CustomRadio<String>(
+          //             value: "2",
+          //             groupValue: _selectedValue,
+          //             onChanged: (value) {
+          //               setState(() {
+          //                 _selectedValue = value!;
+          //               });
+          //               // showSnackBar(context, value!);
+          //             },
+          //           ),
+          //         )
+          //       ],
+          //     ),
+          //     Container(
+          //       margin: const EdgeInsets.only(top: 200),
+          //       child: ElevatedButton(
+          //         style: Theme.button1,
+          //         onPressed: () {
+          //           // showSnackBar(context, _selectedValue);
+          //           if (_selectedValue == '0') {
+          //             // Navigator.of(context).push(MaterialPageRoute(
+          //             //     builder: (context) => master_clue(ms_clue: widget.ms_clue)));
+          //           } else if (_selectedValue == '1') {
+          //           } else {
+          //             // Navigator.of(context).push(MaterialPageRoute(
+          //             //     builder: (context) => quiz_page(otp: '', i: widget.i)));
+          //           }
+          //         },
+          //         child: Text("Submit"),
+          //       ),
+          //     )
+          //   ],
+          // );
+        
+        
         } else {
           showSnackBar(context, 'Clue Obtained !');
           setState(() {
@@ -129,7 +316,7 @@ class _quiz_pageState extends State<quiz_page> {
 
         // add logic for the options page here
         if (index == noQuiz) {
-          timer.cancel();
+          timerController.cancelTimer();
           // Navigator.of(context).pop();
           print(returnTime(mainSec - sec));
           try {
@@ -200,7 +387,6 @@ class _quiz_pageState extends State<quiz_page> {
   //   }
   // }
 
-
   //disable screenshots
 
   Future<void> disableCapture() async {
@@ -212,13 +398,15 @@ class _quiz_pageState extends State<quiz_page> {
   @override
   void initState() {
     disableCapture();
+    // countTimer();
+    timerController = TimerController(sec);
     countTimer();
     print(widget.otp);
-    if (widget.otp == '') {
-      showSnackBar(context, "here ${widget.i}");
-      index = widget.i + 1;
-      widget.ms_clue++;
-    }
+    // if (widget.otp == '') {
+    //   // showSnackBar(context, "here ${widget.i}");
+    //   // index = widget.i + 1;
+    //   widget.ms_clue++;
+    // }
 
     // quizIndex = int.parse(widget.otp[3]) -1 ;
 
@@ -248,7 +436,7 @@ class _quiz_pageState extends State<quiz_page> {
 
   @override
   Widget build(BuildContext context) {
-    showSnackBar(context, index);
+    // showSnackBar(context, index);
     return WillPopScope(
       onWillPop: () async {
         return false;

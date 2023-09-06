@@ -43,7 +43,7 @@ class _master_clueState extends State<master_clue> {
       if (ScanResult == Data.quizItems[3][0].answer) {
           // showSnackBar(context, "Correct");
           Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => quiz_page(otp: '', i: 3)));
+                MaterialPageRoute(builder: (context) => quiz_page(otp: '',)));
       } else if (ScanResult == '-1') {
         print('test bro');
       } else {
@@ -76,7 +76,7 @@ class _master_clueState extends State<master_clue> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // Image.network(widget.ms_clue),
-                      Text("Master Clue"),
+                      Text("Master Clue ${widget.ms_clue + 1}"),
                     ],
                   ),
                 ),

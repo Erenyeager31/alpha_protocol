@@ -53,7 +53,9 @@ class CustomRadio<T> extends StatelessWidget {
 class options extends StatefulWidget {
   int i;
   int ms_clue;
-  options({required this.i, required this.ms_clue});
+  final int timerController;
+  final Function(int) onIndexChanged;
+  options({required this.i, required this.ms_clue,required this.timerController,required this.onIndexChanged});
   @override
   _optionsState createState() => _optionsState();
 }
@@ -156,9 +158,10 @@ class _optionsState extends State<options> {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => master_clue(ms_clue: widget.ms_clue)));
                   } else if (_selectedValue == '1') {
+                    // showSnackBar(context, 'the time is ${widget.timerController}');
                   } else {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => quiz_page(otp: '', i: widget.i)));
+                    widget.onIndexChanged(widget.i+1);
+                    Navigator.of(context).pop(widget.timerController);
                   }
                 },
                 child: Text("Submit"),

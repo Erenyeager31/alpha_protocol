@@ -116,6 +116,12 @@ class _quiz_pageState extends State<quiz_page> {
     });
   }
 
+  void ontimechanged(int sec_updated){
+    setState((){
+      sec = sec_updated;
+    });
+  }
+
   //Snackbar
   void showSnackBar(BuildContext context, text) {
     final snackBar = SnackBar(
@@ -190,6 +196,7 @@ class _quiz_pageState extends State<quiz_page> {
           ms_clue: widget.ms_clue,
           timerController: sec,
           onIndexChanged: onIndexChanged,
+          ontimechanged: ontimechanged,
         ),
       ),
     );
@@ -212,7 +219,7 @@ class _quiz_pageState extends State<quiz_page> {
       if (ScanResult == Data.quizItems[quizIndex][index + 1].answer) {
         // showSnackBar(context, index);
         print(index);
-        if (index == 1 || index == 3) {
+        if (index == 1 || index == 4) {
           showSnackBar(context,
               "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
           Timer(Duration(seconds: 5), () {

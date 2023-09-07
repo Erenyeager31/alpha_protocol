@@ -55,11 +55,13 @@ class options extends StatefulWidget {
   int ms_clue;
   final int timerController;
   final Function(int) onIndexChanged;
+  final Function(int) ontimechanged;
   options(
       {required this.i,
       required this.ms_clue,
       required this.timerController,
-      required this.onIndexChanged});
+      required this.onIndexChanged,
+      required this.ontimechanged});
   @override
   _optionsState createState() => _optionsState();
 }
@@ -165,13 +167,14 @@ class _optionsState extends State<options> {
                             ms_clue: widget.ms_clue,
                             sec: widget.timerController,
                             index: widget.i,
-                            onIndexChanged: widget.onIndexChanged,)));
+                            onIndexChanged: widget.onIndexChanged,
+                            ontimechanged:widget.ontimechanged)));
                   } else if (_selectedValue == '1') {
                     // showSnackBar(context, 'the time is ${widget.timerController}');
                   } else {
                     widget.onIndexChanged(widget.i + 1);
-                    Navigator.of(context).pop(widget.timerController);
-                    Navigator.of(context).pop(widget.timerController);
+                    Navigator.of(context).pop(widget.timerController + 300);
+                    // Navigator.of(context).pop(widget.timerController);
                   }
                 },
                 child: Text("Submit"),

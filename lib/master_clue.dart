@@ -11,17 +11,99 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'data.dart' as Data;
 
+class TimerController {
+  late Timer timer;
+  int remainingTime;
+
+  TimerController(this.remainingTime);
+
+  void startTimer(void Function() onTimerTick) {
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (remainingTime <= 0) {
+        timer.cancel();
+        // Handle timer completion if needed
+      } else {
+        remainingTime--;
+        onTimerTick();
+      }
+    });
+  }
+
+  void cancelTimer() {
+    timer.cancel();
+  }
+}
+
 class master_clue extends StatefulWidget {
   int ms_clue;
-  final int sec;
+  int sec;
   final int index;
   final Function(int) onIndexChanged;
-  master_clue({required this.ms_clue, required this.sec, required this.index,required this.onIndexChanged });
+  final Function(int) ontimechanged;
+  master_clue(
+      {required this.ms_clue,
+      required this.sec,
+      required this.index,
+      required this.onIndexChanged,
+      required this.ontimechanged}){
+        print("master_clue");
+      }
   @override
   _master_clueState createState() => _master_clueState();
 }
 
 class _master_clueState extends State<master_clue> {
+  int m_sec = 240;
+  late TimerController timerController;
+
+  formatedTime(time) {
+    int m_sec = time % 60;
+    int min = (time / 60).floor();
+    String minute = min.toString().length <= 1 ? "0$min" : "$min";
+    String second = m_sec.toString().length <= 1 ? "0$m_sec" : "$m_sec";
+    return "$minute min $second sec";
+  }
+
+  // Time to return for API post
+  returnTime(time) {
+    int m_sec = time % 60;
+    int min = (time / 60).floor();
+    return "$min.$m_sec";
+  }
+
+  // countdown timer function
+  void countTimer() {
+    // timer = Timer.periodic(Duration(seconds: 1), (_) {
+    //   if (sec == 1) {
+    //     timer.cancel();
+    //     // test2();
+    //     Navigator.of(context).pop();
+    //     showSnackBar(context, "Time over !");
+    //   }
+    //   setState(() {
+    //     sec--;
+    //   });
+    // });
+    timerController.startTimer(() {
+      setState(() {
+        m_sec = timerController.remainingTime;
+      });
+    });
+  }
+
+  // reduce time by 30 sec
+  void reduceTime() {
+    if (m_sec <= 30) {
+      setState(() {
+        m_sec = 2;
+      });
+    } else {
+      setState(() {
+        m_sec -= 30;
+      });
+    }
+  }
+
   void showSnackBar(BuildContext context, text) {
     final snackBar = SnackBar(
       content: Text(
@@ -45,11 +127,12 @@ class _master_clueState extends State<master_clue> {
           '#FFF44336', "Cancel", true, ScanMode.BARCODE);
       // if (!mounted) return;
       // final quizstate = Provider.of<quiz_state>(context);
-      if (ScanResult == Data.quizItems[3][0].answer) {
+      if (ScanResult == Data.quizItems[4][0].answer) {
         showSnackBar(context, "Correct");
-        // quizstate.setValues(widget.sec + 180, widget.index + 2);
+        // quizstate.setValues(widget.m_sec + 180, widget.index + 2);
         widget.onIndexChanged(widget.index + 3);
-        Navigator.of(context).pop(widget.sec);
+        widget.ontimechanged(widget.sec + 240);
+        Navigator.of(context).pop(widget.sec + 240);
         // Navigator.of(context).push(MaterialPageRoute(
         //     builder: (context) => quiz_page(
         //           otp: '',
@@ -66,6 +149,14 @@ class _master_clueState extends State<master_clue> {
   }
 
   @override
+  void initState(){
+    super.initState();
+    timerController = TimerController(m_sec);
+    countTimer();
+    print('timer worked');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
@@ -73,8 +164,10 @@ class _master_clueState extends State<master_clue> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Master Clue ${widget.ms_clue + 1}'),
-          foregroundColor: Colors.black,
+          leading: Icon(
+            Icons.timer,
+          ),
+          title: Text(formatedTime(m_sec)),
         ),
         body: Stack(
           children: [

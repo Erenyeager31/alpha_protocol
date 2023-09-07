@@ -55,7 +55,11 @@ class options extends StatefulWidget {
   int ms_clue;
   final int timerController;
   final Function(int) onIndexChanged;
-  options({required this.i, required this.ms_clue,required this.timerController,required this.onIndexChanged});
+  options(
+      {required this.i,
+      required this.ms_clue,
+      required this.timerController,
+      required this.onIndexChanged});
   @override
   _optionsState createState() => _optionsState();
 }
@@ -155,12 +159,18 @@ class _optionsState extends State<options> {
                 onPressed: () {
                   // showSnackBar(context, _selectedValue);
                   if (_selectedValue == '0') {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => master_clue(ms_clue: widget.ms_clue)));
+                    
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => master_clue(
+                            ms_clue: widget.ms_clue,
+                            sec: widget.timerController,
+                            index: widget.i,
+                            onIndexChanged: widget.onIndexChanged,)));
                   } else if (_selectedValue == '1') {
                     // showSnackBar(context, 'the time is ${widget.timerController}');
                   } else {
-                    widget.onIndexChanged(widget.i+1);
+                    widget.onIndexChanged(widget.i + 1);
+                    Navigator.of(context).pop(widget.timerController);
                     Navigator.of(context).pop(widget.timerController);
                   }
                 },

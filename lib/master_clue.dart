@@ -1,4 +1,5 @@
 import 'package:alpha_protocol/quiz_page.dart';
+import 'package:alpha_protocol/quiz_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'dart:async';
@@ -7,12 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'data.dart' as Data;
 
 class master_clue extends StatefulWidget {
   int ms_clue;
-  master_clue({required this.ms_clue});
-
+  final int sec;
+  final int index;
+  final Function(int) onIndexChanged;
+  master_clue({required this.ms_clue, required this.sec, required this.index,required this.onIndexChanged });
   @override
   _master_clueState createState() => _master_clueState();
 }
@@ -40,14 +44,20 @@ class _master_clueState extends State<master_clue> {
       final ScanResult = await FlutterBarcodeScanner.scanBarcode(
           '#FFF44336', "Cancel", true, ScanMode.BARCODE);
       // if (!mounted) return;
+      // final quizstate = Provider.of<quiz_state>(context);
       if (ScanResult == Data.quizItems[3][0].answer) {
-          // showSnackBar(context, "Correct");
-          Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => quiz_page(otp: '',)));
+        showSnackBar(context, "Correct");
+        // quizstate.setValues(widget.sec + 180, widget.index + 2);
+        widget.onIndexChanged(widget.index + 3);
+        Navigator.of(context).pop(widget.sec);
+        // Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (context) => quiz_page(
+        //           otp: '',
+        //         )));
       } else if (ScanResult == '-1') {
         print('test bro');
-      } else {
-      }
+        showSnackBar(context, "Incorrect");
+      } else {}
     } on FormatException {
       print('back');
     } on PlatformException {

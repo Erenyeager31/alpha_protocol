@@ -1,4 +1,5 @@
 import 'package:alpha_protocol/options.dart';
+import 'package:alpha_protocol/quiz_state.dart';
 import 'package:flutter/material.dart';
 // import 'package:hunt/homePage.dart';
 // import 'package:hunt/quizPage.dart';
@@ -9,9 +10,15 @@ import 'package:alpha_protocol/quiz_page.dart';
 import 'package:alpha_protocol/start_page.dart';
 // ignore: library_prefixes
 import 'package:alpha_protocol/themes.dart' as Theme;
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => quiz_state(1800,0),
+    child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

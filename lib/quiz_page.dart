@@ -198,6 +198,8 @@ class _quiz_pageState extends State<quiz_page> {
         sec = selectedRemainingTime;
       });
     }
+
+
     // ... Rest of your code ...
   }
 
@@ -221,92 +223,8 @@ class _quiz_pageState extends State<quiz_page> {
             //! index is updated by using the function onIndexChanges as defined above 
             //! and the remaining time is returned as it is or can be modified within the master_clue page
             navigateToOptions();
-
           });
-
-          //   Column(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     Container(
-          //         margin: EdgeInsets.only(bottom: 100, top: 100),
-          //         child: Text("Please Select an Option")),
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       children: [
-          //         Text("Skip 2 Clues"),
-          //         Container(
-          //           margin: EdgeInsets.only(left: 10),
-          //           child: CustomRadio<String>(
-          //             value: "0",
-          //             groupValue: _selectedValue,
-          //             onChanged: (value) {
-          //               setState(() {
-          //                 _selectedValue = value!;
-          //               });
-          //               // showSnackBar(context, value!);
-          //             },
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       children: [
-          //         Text("Add Timer"),
-          //         CustomRadio<String>(
-          //           value: "1",
-          //           groupValue: _selectedValue,
-          //           onChanged: (value) {
-          //             setState(() {
-          //               _selectedValue = value!;
-          //             });
-          //             // showSnackBar(context, value!);
-          //           },
-          //         ),
-          //       ],
-          //     ),
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       children: [
-          //         Text("None"),
-          //         Container(
-          //           margin: EdgeInsets.only(left: 55),
-          //           child: CustomRadio<String>(
-          //             value: "2",
-          //             groupValue: _selectedValue,
-          //             onChanged: (value) {
-          //               setState(() {
-          //                 _selectedValue = value!;
-          //               });
-          //               // showSnackBar(context, value!);
-          //             },
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //     Container(
-          //       margin: const EdgeInsets.only(top: 200),
-          //       child: ElevatedButton(
-          //         style: Theme.button1,
-          //         onPressed: () {
-          //           // showSnackBar(context, _selectedValue);
-          //           if (_selectedValue == '0') {
-          //             // Navigator.of(context).push(MaterialPageRoute(
-          //             //     builder: (context) => master_clue(ms_clue: widget.ms_clue)));
-          //           } else if (_selectedValue == '1') {
-          //           } else {
-          //             // Navigator.of(context).push(MaterialPageRoute(
-          //             //     builder: (context) => quiz_page(otp: '', i: widget.i)));
-          //           }
-          //         },
-          //         child: Text("Submit"),
-          //       ),
-          //     )
-          //   ],
-          // );
-        
-        
+  
         } else {
           showSnackBar(context, 'Clue Obtained !');
           setState(() {

@@ -44,8 +44,10 @@ class quiz_page extends StatefulWidget {
   String otp;
   // int i;
   int ms_clue = 0;
+  String email;
   quiz_page({
     required this.otp,
+    required this.email
   });
 
   @override
@@ -254,7 +256,7 @@ class _quiz_pageState extends State<quiz_page> {
               },
               body: jsonEncode([
                 {
-                  "otp": widget.otp,
+                  "email": widget.email,
                   "level": index,
                   "time": double.parse(returnTime(mainSec - sec)),
                   // "minute": returnTime(mainSec - sec)[1],
@@ -269,7 +271,7 @@ class _quiz_pageState extends State<quiz_page> {
           } on SocketException catch (e) {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => errorPage(
-                    otp: widget.otp,
+                    email: widget.email,
                     level: index,
                     time: double.parse(returnTime(mainSec - sec)))));
           }

@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         // '/': (context) => options(),
         // '/test' : (context) => testPage(),
         // '/intro': (context) => start_page(),
-        '/quiz_page': (context) => quiz_page(otp: '1',),
+        '/quiz_page': (context) => quiz_page(otp: '1',email:'',),
         // '/master_clue': (context) => master_clue(),
         // '/': (context) => riddle_page(),
       },

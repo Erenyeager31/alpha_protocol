@@ -6,11 +6,12 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class errorPage extends StatefulWidget {
-  String otp;
+  // String otp;
   int level;
   double time;
+  String email;
   errorPage(
-      {required this.otp,
+      {required this.email,
       required this.level,
       required this.time,});
 
@@ -44,7 +45,7 @@ class _errorPageState extends State<errorPage> {
         },
         body: jsonEncode([
           {
-            "otp": widget.otp,
+            "email": widget.email,
             "level": widget.level,
             "time" : widget.time
           }

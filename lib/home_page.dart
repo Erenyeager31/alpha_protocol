@@ -17,17 +17,19 @@ class home_page extends StatefulWidget {
 }
 
 class _home_pageState extends State<home_page> {
-
   // variables
   late String resp;
   final otp = TextEditingController();
-  bool isLoading  = false;
+  final email = TextEditingController();
+  bool isLoading = false;
 
   //Snackbar
-  void showSnackBar(BuildContext context,text) {
+  void showSnackBar(BuildContext context, text) {
     final snackBar = SnackBar(
-      content: Text(text,
-        style: TextStyle(color: const Color(0xff181920),
+      content: Text(
+        text,
+        style: TextStyle(
+            color: const Color(0xff181920),
             fontFamily: GoogleFonts.varela().fontFamily),
       ),
       backgroundColor: const Color(0xff64E54C),
@@ -41,22 +43,26 @@ class _home_pageState extends State<home_page> {
   Future<void> logUser() async {
     // ignore: unused_local_variable
     //! This part calls the api and checks the otp , based on which a response is sent back to device
-    // http.Response resp = await http.post(
-    //   Uri.parse('https://alphaprotocol.herokuapp.com/ap/verotp'),
-    //   headers: <String, String>{
-    //     'Content-Type': 'application/json; charset=UTF-8',
-    //   },
-    //   body: jsonEncode([
-    //     {"code":otp.text}
-    //   ]),
-    // );
-
+    http.Response resp = await http.post(
+      // Uri.parse('https://alphaprotocol.herokuapp.com/ap/verotp'),
+      Uri.parse('https://d0ed-139-5-239-162.ngrok-free.app/ap/verotp'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode([
+        {"code":otp.text,"email":email.text}
+      ]),
+    );
 
     //! Due to some reasons there is no response coming from the server
     // Navigator.of(context).pop();
     print("yaha dekho $otp.text");
-    
-    Navigator.pushNamed(context, '/quiz_page', arguments: otp.text,);
+
+    // Navigator.pushNamed(
+    //   context,
+    //   '/quiz_page',
+    //   arguments: otp.text,
+    // );
     // if(resp.statusCode==200){
     //   Navigator.of(context).pop();
     //   // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>quizPage(otp : otp.text)));
@@ -68,82 +74,100 @@ class _home_pageState extends State<home_page> {
     //   showSnackBar(context, 'Invalid Code');
     // }
     // otp.clear();
+    final res_code = resp.statusCode;
+    showSnackBar(context, "$res_code");
   }
 
   void startGame() {
-
-    showDialog(context: context, builder: (context){
-      return const Center(child: CircularProgressIndicator());
-    });
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(child: CircularProgressIndicator());
+        });
 
     logUser();
     //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>quizPage(otp : otp.text)));
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          body: Center(
-            child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Image(height:180,image: AssetImage('assets/codex.png')),
-                    const Text('ALPHA PROTOCOL',style: TextStyle(color: Color(0xff656b7c))),
-                    AnimatedTextKit(
-                      repeatForever: true,
-                      animatedTexts: [
-
-                        TypewriterAnimatedText('Into the shoes of a sleeper agent...',
-                          textStyle: const TextStyle(fontSize:20),
-                          cursor: '|',
-                          speed :const Duration(milliseconds: 90)
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 55),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Container(
-                        width: 300,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color : const Color(0xff282c34),
-                          borderRadius: BorderRadius.circular(12)
-                        ),
-                        child: TextField(
-                          style: const TextStyle(color: Colors.green,fontSize: 18),
-                          controller: otp,
-                          decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            hintText: "Enter Code",
-                            hintStyle: TextStyle(color: Color(0xff656b7c)),
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    ElevatedButton(
-                      style: Theme.button1,
-                      child: const Text("Start"),
-
-                      onPressed: () {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        startGame();
-                        setState(() {
-                          isLoading = false;
-                        });
-
-                      },
-                    )
-                  ],
-                )),
-          ),
-        );
+      body: Center(
+        child: SingleChildScrollView(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Image(height: 180, image: AssetImage('assets/codex.png')),
+            const Text('ALPHA PROTOCOL',
+                style: TextStyle(color: Color(0xff656b7c))),
+            AnimatedTextKit(
+              repeatForever: true,
+              animatedTexts: [
+                TypewriterAnimatedText('Into the shoes of a sleeper agent...',
+                    textStyle: const TextStyle(fontSize: 20),
+                    cursor: '|',
+                    speed: const Duration(milliseconds: 90)),
+              ],
+            ),
+            const SizedBox(height: 55),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0,right: 20.0),
+              child: Container(
+                width: 300,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: const Color(0xff282c34),
+                    borderRadius: BorderRadius.circular(12)),
+                child: TextField(
+                  style: const TextStyle(color: Colors.green, fontSize: 18),
+                  controller: otp,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.email),
+                    hintText: "Enter Email",
+                    hintStyle: TextStyle(color: Color(0xff656b7c)),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 55),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0,right: 20.0,left: 20.0),
+              child: Container(
+                width: 300,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: const Color(0xff282c34),
+                    borderRadius: BorderRadius.circular(12)),
+                child: TextField(
+                  style: const TextStyle(color: Colors.green, fontSize: 18),
+                  controller: email,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    hintText: "Enter Code",
+                    hintStyle: TextStyle(color: Color(0xff656b7c)),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+            ElevatedButton(
+              style: Theme.button1,
+              child: const Text("Start"),
+              onPressed: () {
+                setState(() {
+                  isLoading = true;
+                });
+                startGame();
+                setState(() {
+                  isLoading = false;
+                });
+              },
+            )
+          ],
+        )),
+      ),
+    );
   }
 }

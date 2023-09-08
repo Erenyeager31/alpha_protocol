@@ -75,7 +75,7 @@ class master_clue extends StatefulWidget {
 }
 
 class _master_clueState extends State<master_clue> {
-  int m_sec = 30;
+  int m_sec = 240;
   late TimerController timerController;
 
   formatedTime(time) {

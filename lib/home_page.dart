@@ -63,19 +63,20 @@ class _home_pageState extends State<home_page> {
     //   '/quiz_page',
     //   arguments: otp.text,
     // );
-    // if(resp.statusCode==200){
-    //   Navigator.of(context).pop();
-    //   // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>quizPage(otp : otp.text)));
+    if(resp.statusCode==200){
+      Navigator.of(context).pop();
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => quiz_page(otp:otp.text, email:email.text)));
 
-    // }else if(resp.statusCode==400){
-    //   otp.clear();
-    //   Navigator.of(context).pop();
-    //   print('here');
-    //   showSnackBar(context, 'Invalid Code');
-    // }
-    // otp.clear();
-    final res_code = resp.statusCode;
-    showSnackBar(context, "$res_code");
+    }else if(resp.statusCode==400){
+      otp.clear();
+      Navigator.of(context).pop();
+      print('here');
+      showSnackBar(context, 'Invalid Code');
+    }
+    otp.clear();
+    // final res_code = resp.statusCode;
+    // showSnackBar(context, "$res_code");
   }
 
   void startGame() {
@@ -99,7 +100,7 @@ class _home_pageState extends State<home_page> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Image(height: 180, image: AssetImage('assets/codex.png')),
-            const Text('ALPHA PROTOCOL',
+            const Text('ALPHA PROTOCOL 2.0',
                 style: TextStyle(color: Color(0xff656b7c))),
             AnimatedTextKit(
               repeatForever: true,
@@ -121,7 +122,7 @@ class _home_pageState extends State<home_page> {
                     borderRadius: BorderRadius.circular(12)),
                 child: TextField(
                   style: const TextStyle(color: Colors.green, fontSize: 18),
-                  controller: otp,
+                  controller: email,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.email),
                     hintText: "Enter Email",
@@ -142,7 +143,7 @@ class _home_pageState extends State<home_page> {
                     borderRadius: BorderRadius.circular(12)),
                 child: TextField(
                   style: const TextStyle(color: Colors.green, fontSize: 18),
-                  controller: email,
+                  controller: otp,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.lock),
                     hintText: "Enter Code",

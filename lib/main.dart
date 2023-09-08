@@ -1,5 +1,6 @@
 import 'package:alpha_protocol/options.dart';
 import 'package:alpha_protocol/quiz_state.dart';
+import 'package:alpha_protocol/riddle_page.dart';
 import 'package:flutter/material.dart';
 // import 'package:hunt/homePage.dart';
 // import 'package:hunt/quizPage.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         // '/intro': (context) => start_page(),
         '/quiz_page': (context) => quiz_page(otp: '1',),
         // '/master_clue': (context) => master_clue(),
+        // '/': (context) => riddle_page(),
       },
     );
   }

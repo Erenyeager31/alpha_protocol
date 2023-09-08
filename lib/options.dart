@@ -168,12 +168,23 @@ class _optionsState extends State<options> {
                             sec: widget.timerController,
                             index: widget.i,
                             onIndexChanged: widget.onIndexChanged,
-                            ontimechanged:widget.ontimechanged)));
+                            ontimechanged:widget.ontimechanged,
+                            mode: "0",)));
                   } else if (_selectedValue == '1') {
-                    // showSnackBar(context, 'the time is ${widget.timerController}');
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => master_clue(
+                            ms_clue: widget.ms_clue,
+                            sec: widget.timerController,
+                            index: widget.i,
+                            onIndexChanged: widget.onIndexChanged,
+                            ontimechanged:widget.ontimechanged,
+                            mode: "1",)));
                   } else {
                     widget.onIndexChanged(widget.i + 1);
-                    Navigator.of(context).pop(widget.timerController + 300);
+                    // final newtimer = widget.timerController + 300;
+                    // showSnackBar(context, "$newtimer");
+                    // widget.ontimechanged(widget.timerController + 300);
+                    Navigator.of(context).pop(widget.timerController);
                     // Navigator.of(context).pop(widget.timerController);
                   }
                 },

@@ -55,7 +55,7 @@ class _home_pageState extends State<home_page> {
     //! Due to some reasons there is no response coming from the server
     // Navigator.of(context).pop();
     print("yaha dekho $otp.text");
-    // Navigator.of(context).push(MaterialPageRoute(builder: (context)=>quiz_page(otp : otp.text)));
+    
     Navigator.pushNamed(context, '/quiz_page', arguments: otp.text,);
     // if(resp.statusCode==200){
     //   Navigator.of(context).pop();

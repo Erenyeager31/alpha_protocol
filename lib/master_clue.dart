@@ -40,12 +40,14 @@ class master_clue extends StatefulWidget {
   final int index;
   final Function(int) onIndexChanged;
   final Function(int) ontimechanged;
+  String mode;
   master_clue(
       {required this.ms_clue,
       required this.sec,
       required this.index,
       required this.onIndexChanged,
-      required this.ontimechanged}){
+      required this.ontimechanged,
+      required this.mode}){
         print("master_clue");
       }
   @override
@@ -129,10 +131,18 @@ class _master_clueState extends State<master_clue> {
       // final quizstate = Provider.of<quiz_state>(context);
       if (ScanResult == Data.quizItems[4][0].answer) {
         showSnackBar(context, "Correct");
-        // quizstate.setValues(widget.m_sec + 180, widget.index + 2);
-        widget.onIndexChanged(widget.index + 3);
-        widget.ontimechanged(widget.sec + 240);
-        Navigator.of(context).pop(widget.sec + 240);
+
+        if(widget.mode == "0"){
+          widget.onIndexChanged(widget.index + 3);
+          // widget.ontimechanged(widget.sec + 240);          
+        }
+        else if(widget.mode == "1"){
+          widget.onIndexChanged(widget.index + 2);
+          final newtimer = widget.sec + 240;
+          widget.ontimechanged(newtimer);
+        }
+
+        Navigator.of(context).pop();
         // Navigator.of(context).push(MaterialPageRoute(
         //     builder: (context) => quiz_page(
         //           otp: '',

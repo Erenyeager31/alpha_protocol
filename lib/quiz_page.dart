@@ -101,7 +101,7 @@ class _quiz_pageState extends State<quiz_page> {
   // Clues indexing
   String _selectedValue = "None";
   int index = 0;
-  int noQuiz = 8; //length -1
+  int noQuiz = 13; //length -1
   late int quizIndex;
   late TimerController timerController;
 
@@ -118,7 +118,7 @@ class _quiz_pageState extends State<quiz_page> {
 
   void ontimechanged(int sec_updated){
     setState((){
-      sec = sec_updated;
+      timerController.remainingTime = sec_updated;
     });
   }
 
@@ -201,9 +201,11 @@ class _quiz_pageState extends State<quiz_page> {
       ),
     );
     if (selectedRemainingTime != null) {
+      // showSnackBar(context, "$selectedRemainingTime");
       setState(() {
-        sec = selectedRemainingTime;
+        timerController.remainingTime = selectedRemainingTime;
       });
+      // showSnackBar(context, "$sec");
     }
 
 
@@ -219,7 +221,7 @@ class _quiz_pageState extends State<quiz_page> {
       if (ScanResult == Data.quizItems[quizIndex][index + 1].answer) {
         // showSnackBar(context, index);
         print(index);
-        if (index == 1 || index == 4) {
+        if (index == 1 || index == 6) {
           showSnackBar(context,
               "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
           Timer(Duration(seconds: 5), () {
@@ -245,21 +247,21 @@ class _quiz_pageState extends State<quiz_page> {
           // Navigator.of(context).pop();
           print(returnTime(mainSec - sec));
           try {
-            // http.Response resp = await http.post(
-            //   Uri.parse('https://alphaprotocol.herokuapp.com/ap/addscr'),
-            //   headers: <String, String>{
-            //     'Content-Type': 'application/json; charset=UTF-8',
-            //   },
-            //   body: jsonEncode([
-            //     {
-            //       "otp": widget.otp,
-            //       "level": index,
-            //       "time": double.parse(returnTime(mainSec - sec)),
-            //       // "minute": returnTime(mainSec - sec)[1],
-            //       // "second": returnTime(mainSec - sec)[0]
-            //     }
-            //   ]),
-            // );
+            http.Response resp = await http.post(
+              Uri.parse('https://alphaprotocol.herokuapp.com/ap/addscr'),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode([
+                {
+                  "otp": widget.otp,
+                  "level": index,
+                  "time": double.parse(returnTime(mainSec - sec)),
+                  // "minute": returnTime(mainSec - sec)[1],
+                  // "second": returnTime(mainSec - sec)[0]
+                }
+              ]),
+            );
             showSnackBar(context, "Final Page");
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>

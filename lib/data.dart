@@ -63,6 +63,7 @@ List<QuizData> q_data3 = [
 
 List<QuizData> master_clue = [
   QuizData("https://res.cloudinary.com/docvlyucw/image/upload/v1662390258/Alpha%20Protocol/Intro/Intro.jpg","123456"),  
+  QuizData("https://res.cloudinary.com/docvlyucw/image/upload/v1662390258/Alpha%20Protocol/Intro/Intro.jpg","123456"),  
 ];
 
 List quizItems = [demo,q_data1,q_data2,q_data3,master_clue];

@@ -10,6 +10,7 @@ import 'package:alpha_protocol/quiz_page.dart';
 import 'package:alpha_protocol/themes.dart' as Theme;
 import 'package:provider/provider.dart';
 import 'start_page.dart';
+import 'home_page.dart';
 
 void main() {
   runApp(
@@ -32,8 +33,8 @@ class MyApp extends StatelessWidget {
       title: 'Treasure Hunt',
       initialRoute: '/',
       routes: {
-        // '/': (context) => home_page(),
-        '/': (context) => quiz_page(otp: '1',email: '',),
+        '/': (context) => home_page(),
+        // '/': (context) => quiz_page(otp: '1',email: '',),
         // '/test' : (context) => testPage(),
         // '/intro': (context) => start_page(),
         '/quiz_page': (context) => quiz_page(otp: '1',email:'',),

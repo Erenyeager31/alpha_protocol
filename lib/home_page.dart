@@ -50,7 +50,9 @@ class _home_pageState extends State<home_page> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode([
-        {"code":otp.text,"email":email.text}
+        {"code":otp.text
+        // ,"email":email.text
+        }
       ]),
     );
 
@@ -111,27 +113,27 @@ class _home_pageState extends State<home_page> {
                     speed: const Duration(milliseconds: 90)),
               ],
             ),
-            const SizedBox(height: 55),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0,right: 20.0),
-              child: Container(
-                width: 300,
-                height: 50,
-                decoration: BoxDecoration(
-                    color: const Color(0xff282c34),
-                    borderRadius: BorderRadius.circular(12)),
-                child: TextField(
-                  style: const TextStyle(color: Colors.green, fontSize: 18),
-                  controller: email,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.email),
-                    hintText: "Enter Email",
-                    hintStyle: TextStyle(color: Color(0xff656b7c)),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ),
+            // const SizedBox(height: 55),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 20.0,right: 20.0),
+            //   child: Container(
+            //     width: 300,
+            //     height: 50,
+            //     decoration: BoxDecoration(
+            //         color: const Color(0xff282c34),
+            //         borderRadius: BorderRadius.circular(12)),
+            //     child: TextField(
+            //       style: const TextStyle(color: Colors.green, fontSize: 18),
+            //       controller: email,
+            //       decoration: const InputDecoration(
+            //         prefixIcon: Icon(Icons.email),
+            //         hintText: "Enter Email",
+            //         hintStyle: TextStyle(color: Color(0xff656b7c)),
+            //         border: InputBorder.none,
+            //       ),
+            //     ),
+            //   ),
+            // ),
             const SizedBox(height: 55),
             Padding(
               padding: const EdgeInsets.only(bottom: 20.0,right: 20.0,left: 20.0),

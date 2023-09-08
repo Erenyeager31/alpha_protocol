@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:alpha_protocol/quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';

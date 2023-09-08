@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'themes.dart' as Theme;
 
 class finalPage extends StatefulWidget {
@@ -11,6 +12,22 @@ class finalPage extends StatefulWidget {
 class _finalPageState extends State<finalPage> {
   final riddle_answer = TextEditingController();
 
+  void showSnackBar(BuildContext context, text) {
+    final snackBar = SnackBar(
+      content: Text(
+        text,
+        style: TextStyle(
+            color: Color(0xff181920),
+            fontFamily: GoogleFonts.varela().fontFamily),
+      ),
+      backgroundColor: Color(0xff64E54C),
+      behavior: SnackBarBehavior.floating,
+      margin: EdgeInsets.all(50),
+      elevation: 20,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -19,17 +36,33 @@ class _finalPageState extends State<finalPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Final Riddle'),
+          title: Text('Final Stage'),
           foregroundColor: Colors.black,
         ),
         body: Center(
           child: SingleChildScrollView(
               child: Container(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Solve the Riddle to Accomplish your Objective"),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+                  child: Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        // color: Colors.white
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10,right: 10),
+                        child: Text(
+                          style: TextStyle(
+                            fontSize: 25
+                          ),
+                          "Solve the Riddle and Enter the Answer to Achieve your Final Objective"),
+                      )),
+                  ),
+                ),
                 const SizedBox(height: 55),
                 Padding(
                   padding: const EdgeInsets.all(
@@ -52,8 +85,14 @@ class _finalPageState extends State<finalPage> {
                     ),
                   ),
                 ),
-
-                // Image.network(widget.img),
+                Container(
+                  child: ElevatedButton(
+                    style: Theme.button1,
+                    onPressed: (){
+                      showSnackBar(context, riddle_answer.text);
+                    },
+                    child: Text("SUBMIT")),
+                )
               ],
             ),
           )),

@@ -1,4 +1,5 @@
 import 'package:alpha_protocol/master_clue.dart';
+// ignore: unused_import
 import 'package:alpha_protocol/quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -154,6 +155,25 @@ class _optionsState extends State<options> {
                 )
               ],
             ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10,right: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 140, 219, 112),
+                  borderRadius: BorderRadius.all(Radius.circular(20))
+                ),
+                // color: Color.fromARGB(255, 140, 219, 112),
+                margin: EdgeInsets.only(top: 50),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+                  child: Text(style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 15,
+                  )
+                  ,"Note : If you Fail to solve Master Clue within 4 minutes, you will be Penalized with 4 Minutes and return back to quiz"),
+                ),
+              ),
+            ),
             Container(
               margin: const EdgeInsets.only(top: 200),
               child: ElevatedButton(
@@ -161,24 +181,25 @@ class _optionsState extends State<options> {
                 onPressed: () {
                   // showSnackBar(context, _selectedValue);
                   if (_selectedValue == '0') {
-                    
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => master_clue(
-                            ms_clue: widget.ms_clue,
-                            sec: widget.timerController,
-                            index: widget.i,
-                            onIndexChanged: widget.onIndexChanged,
-                            ontimechanged:widget.ontimechanged,
-                            mode: "0",)));
+                              ms_clue: widget.ms_clue,
+                              sec: widget.timerController,
+                              index: widget.i,
+                              onIndexChanged: widget.onIndexChanged,
+                              ontimechanged: widget.ontimechanged,
+                              mode: "0",
+                            )));
                   } else if (_selectedValue == '1') {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => master_clue(
-                            ms_clue: widget.ms_clue,
-                            sec: widget.timerController,
-                            index: widget.i,
-                            onIndexChanged: widget.onIndexChanged,
-                            ontimechanged:widget.ontimechanged,
-                            mode: "1",)));
+                              ms_clue: widget.ms_clue,
+                              sec: widget.timerController,
+                              index: widget.i,
+                              onIndexChanged: widget.onIndexChanged,
+                              ontimechanged: widget.ontimechanged,
+                              mode: "1",
+                            )));
                   } else {
                     widget.onIndexChanged(widget.i + 1);
                     // final newtimer = widget.timerController + 300;

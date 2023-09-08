@@ -1,4 +1,7 @@
+// ignore_for_file: unused_import
+
 import 'package:alpha_protocol/finalPage.dart';
+import 'package:alpha_protocol/options.dart';
 import 'package:alpha_protocol/quiz_state.dart';
 import 'package:flutter/material.dart';
 // import 'package:hunt/homePage.dart';
@@ -35,7 +38,8 @@ class MyApp extends StatelessWidget {
       routes: {
         // '/': (context) => home_page(),
         // '/quiz_page': (context) => quiz_page(otp: '1',email:'',),
-        '/': (context) => quiz_page(otp: '1',email:'',),
+        // '/': (context) => quiz_page(otp: '1',email:'',),
+        '/': (context) => options(i: 0, ms_clue: 0, timerController: 0, onIndexChanged: (int){}, ontimechanged: (int){}),
         // '/': (context) => finalPage(),
       },
     );

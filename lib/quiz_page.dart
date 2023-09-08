@@ -191,12 +191,12 @@ class _quiz_pageState extends State<quiz_page> {
     }
   }
 
-  void navigateToOptions() async {
+  void navigateToOptions(int ms_clue_index) async {
     final selectedRemainingTime = await Navigator.of(context).push<int>(
       MaterialPageRoute(
         builder: (context) => options(
           i: index,
-          ms_clue: widget.ms_clue,
+          ms_clue: 0,
           timerController: sec,
           onIndexChanged: onIndexChanged,
           ontimechanged: ontimechanged,
@@ -217,7 +217,7 @@ class _quiz_pageState extends State<quiz_page> {
 
   // BarCode scanning Function
   Future<void> scanBarCode() async {
-    showSnackBar(context, "$index");
+    // showSnackBar(context, "$index");
     try {
       final ScanResult = await FlutterBarcodeScanner.scanBarcode(
           '#FFF44336', "Cancel", true, ScanMode.BARCODE);
@@ -225,20 +225,28 @@ class _quiz_pageState extends State<quiz_page> {
       if (ScanResult == Data.quizItems[quizIndex][index + 1].answer) {
         // showSnackBar(context, index);
         print(index);
-        if (index == 1 || index == 6) {
+        if (index == 1) {
           showSnackBar(context,
               "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
           Timer(Duration(seconds: 1), () {
-            // Navigator.of(context).push(
-            //     MaterialPageRoute(builder: (context) => options(i: index,ms_clue: widget.ms_clue,timerController: sec,)));
-
             //!This functions works such that when context is popped from the options or other pages the value of 
             //! index is updated by using the function onIndexChanges as defined above 
             //! and the remaining time is returned as it is or can be modified within the master_clue page
-            navigateToOptions();
+            navigateToOptions(0);
           });
   
-        } else {
+        }
+        else if(index == 6){
+          showSnackBar(context,
+              "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
+          Timer(Duration(seconds: 1), () {
+            //!This functions works such that when context is popped from the options or other pages the value of 
+            //! index is updated by using the function onIndexChanges as defined above 
+            //! and the remaining time is returned as it is or can be modified within the master_clue page
+            navigateToOptions(1);
+          });
+        }
+        else {
           showSnackBar(context, 'Clue Obtained !');
           setState(() {
             index += 1;

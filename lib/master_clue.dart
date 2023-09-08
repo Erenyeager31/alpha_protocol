@@ -1,27 +1,45 @@
 import 'package:alpha_protocol/quiz_page.dart';
-import 'package:alpha_protocol/quiz_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'data.dart' as Data;
+
+// late master_clue masterclue;
+// late _master_clueState mastercluestate;
+
+// void showupSnackbar(BuildContext context){
+//   final snackBar = SnackBar(
+//     content: Text(
+//       "Timer is over! you will be redirected back to quiz page",
+//       style: TextStyle(
+//         color: Color(0xff181920),
+//         fontFamily: GoogleFonts.varela().fontFamily,
+//       ),
+//     ),
+//     backgroundColor: Color(0xff64E54C),
+//     behavior: SnackBarBehavior.floating,
+//     margin: EdgeInsets.all(50),
+//     elevation: 20,
+//   );
+//   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+// }
 
 class TimerController {
   late Timer timer;
   int remainingTime;
-
-  TimerController(this.remainingTime);
+  BuildContext context;
+  Function() NavigationFunction;
+  TimerController(this.remainingTime, this.context, this.NavigationFunction);
 
   void startTimer(void Function() onTimerTick) {
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (remainingTime <= 0) {
         timer.cancel();
-        // Handle timer completion if needed
+        // showupSnackbar(context);
+        NavigationFunction();
       } else {
         remainingTime--;
         onTimerTick();
@@ -47,15 +65,15 @@ class master_clue extends StatefulWidget {
       required this.index,
       required this.onIndexChanged,
       required this.ontimechanged,
-      required this.mode}){
-        print("master_clue");
-      }
+      required this.mode}) {
+    print("master_clue");
+  }
   @override
   _master_clueState createState() => _master_clueState();
 }
 
 class _master_clueState extends State<master_clue> {
-  int m_sec = 240;
+  int m_sec = 30;
   late TimerController timerController;
 
   formatedTime(time) {
@@ -75,17 +93,6 @@ class _master_clueState extends State<master_clue> {
 
   // countdown timer function
   void countTimer() {
-    // timer = Timer.periodic(Duration(seconds: 1), (_) {
-    //   if (sec == 1) {
-    //     timer.cancel();
-    //     // test2();
-    //     Navigator.of(context).pop();
-    //     showSnackBar(context, "Time over !");
-    //   }
-    //   setState(() {
-    //     sec--;
-    //   });
-    // });
     timerController.startTimer(() {
       setState(() {
         m_sec = timerController.remainingTime;
@@ -129,14 +136,13 @@ class _master_clueState extends State<master_clue> {
           '#FFF44336', "Cancel", true, ScanMode.BARCODE);
       // if (!mounted) return;
       // final quizstate = Provider.of<quiz_state>(context);
-      if (ScanResult == Data.quizItems[4][0].answer) {
+      if (ScanResult == Data.quizItems[4][widget.ms_clue].answer) {
         showSnackBar(context, "Correct");
 
-        if(widget.mode == "0"){
+        if (widget.mode == "0") {
           widget.onIndexChanged(widget.index + 3);
-          // widget.ontimechanged(widget.sec + 240);          
-        }
-        else if(widget.mode == "1"){
+          // widget.ontimechanged(widget.sec + 240);
+        } else if (widget.mode == "1") {
           widget.onIndexChanged(widget.index + 2);
           final newtimer = widget.sec + 240;
           widget.ontimechanged(newtimer);
@@ -159,9 +165,17 @@ class _master_clueState extends State<master_clue> {
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    timerController = TimerController(m_sec);
+    timerController = TimerController(m_sec, context, () {
+      showSnackBar(context, "Timer Finished! Redirecting Back to Quiz Page");
+
+      Timer(Duration(seconds: 3), () {
+        widget.onIndexChanged(widget.index + 1);
+        widget.ontimechanged(widget.sec - 240);
+        Navigator.of(context).pop();
+      });
+    });
     countTimer();
     print('timer worked');
   }

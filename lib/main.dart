@@ -33,12 +33,9 @@ class MyApp extends StatelessWidget {
       title: 'Treasure Hunt',
       initialRoute: '/',
       routes: {
-        '/': (context) => home_page(),
-        // '/': (context) => quiz_page(otp: '1',email: '',),
-        // '/test' : (context) => testPage(),
-        // '/intro': (context) => start_page(),
-        '/quiz_page': (context) => quiz_page(otp: '1',email:'',),
-        // '/master_clue': (context) => master_clue(),
+        // '/': (context) => home_page(),
+        // '/quiz_page': (context) => quiz_page(otp: '1',email:'',),
+        '/': (context) => quiz_page(otp: '1',email:'',),
         // '/': (context) => finalPage(),
       },
     );

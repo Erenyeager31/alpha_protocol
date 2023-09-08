@@ -27,6 +27,7 @@ class TimerController {
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (remainingTime <= 0) {
         timer.cancel();
+        
         // Handle timer completion if needed
       } else {
         remainingTime--;
@@ -109,7 +110,7 @@ class _quiz_pageState extends State<quiz_page> {
 
   //timer
   int mainSec = 1800; //1800
-  int sec = 1800;
+  int sec = 60;
   late Timer timer;
 
   void onIndexChanged(int newIndex){

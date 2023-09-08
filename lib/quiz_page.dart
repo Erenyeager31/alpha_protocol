@@ -104,13 +104,13 @@ class _quiz_pageState extends State<quiz_page> {
   // Clues indexing
   String _selectedValue = "None";
   int index = 0;
-  int noQuiz = 13; //length -1
+  int noQuiz = 10; //length -1
   late int quizIndex;
   late TimerController timerController;
 
   //timer
   int mainSec = 1800; //1800
-  int sec = 60;
+  int sec = 1800;
   late Timer timer;
 
   void onIndexChanged(int newIndex){
@@ -180,13 +180,13 @@ class _quiz_pageState extends State<quiz_page> {
 
   // reduce time by 30 sec
   void reduceTime() {
-    if (sec <= 30) {
+    if (timerController.remainingTime <= 30) {
       setState(() {
-        sec = 2;
+        timerController.remainingTime = 2;
       });
     } else {
       setState(() {
-        sec -= 30;
+        timerController.remainingTime -= 30;
       });
     }
   }
@@ -217,6 +217,7 @@ class _quiz_pageState extends State<quiz_page> {
 
   // BarCode scanning Function
   Future<void> scanBarCode() async {
+    showSnackBar(context, "$index");
     try {
       final ScanResult = await FlutterBarcodeScanner.scanBarcode(
           '#FFF44336', "Cancel", true, ScanMode.BARCODE);
@@ -227,7 +228,7 @@ class _quiz_pageState extends State<quiz_page> {
         if (index == 1 || index == 6) {
           showSnackBar(context,
               "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
-          Timer(Duration(seconds: 5), () {
+          Timer(Duration(seconds: 1), () {
             // Navigator.of(context).push(
             //     MaterialPageRoute(builder: (context) => options(i: index,ms_clue: widget.ms_clue,timerController: sec,)));
 
@@ -268,7 +269,8 @@ class _quiz_pageState extends State<quiz_page> {
             showSnackBar(context, "Final Page");
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
-                    finalPage(img: Data.quizItems[quizIndex][index].link)));
+                    // finalPage(img: Data.quizItems[quizIndex][index].link)));
+                    finalPage()));
           } on SocketException catch (e) {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => errorPage(

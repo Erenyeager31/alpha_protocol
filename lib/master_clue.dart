@@ -9,26 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'data.dart' as Data;
 
-// late master_clue masterclue;
-// late _master_clueState mastercluestate;
-
-// void showupSnackbar(BuildContext context){
-//   final snackBar = SnackBar(
-//     content: Text(
-//       "Timer is over! you will be redirected back to quiz page",
-//       style: TextStyle(
-//         color: Color(0xff181920),
-//         fontFamily: GoogleFonts.varela().fontFamily,
-//       ),
-//     ),
-//     backgroundColor: Color(0xff64E54C),
-//     behavior: SnackBarBehavior.floating,
-//     margin: EdgeInsets.all(50),
-//     elevation: 20,
-//   );
-//   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-// }
-
 class TimerController {
   late Timer timer;
   int remainingTime;

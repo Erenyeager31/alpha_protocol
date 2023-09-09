@@ -20,14 +20,15 @@ import 'themes.dart' as Theme;
 class TimerController {
   late Timer timer;
   int remainingTime;
-
-  TimerController(this.remainingTime);
+  BuildContext context;
+  Function() TimerFinished_close;
+  TimerController(this.remainingTime, this.context, this.TimerFinished_close);
 
   void startTimer(void Function() onTimerTick) {
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (remainingTime <= 0) {
         timer.cancel();
-        
+        TimerFinished_close();
         // Handle timer completion if needed
       } else {
         remainingTime--;
@@ -45,12 +46,11 @@ class quiz_page extends StatefulWidget {
   String otp;
   // int i;
   int ms_clue = 0;
-  String email;
+  // String email;
   quiz_page({
     required this.otp,
-    required this.email
+    // required this.email
   });
-
   @override
   _quiz_pageState createState() => _quiz_pageState();
 }
@@ -107,20 +107,19 @@ class _quiz_pageState extends State<quiz_page> {
   int noQuiz = 10; //length -1
   late int quizIndex;
   late TimerController timerController;
-
   //timer
   int mainSec = 1800; //1800
   int sec = 1800;
   late Timer timer;
 
-  void onIndexChanged(int newIndex){
-    setState((){
+  void onIndexChanged(int newIndex) {
+    setState(() {
       index = newIndex;
     });
   }
 
-  void ontimechanged(int sec_updated){
-    setState((){
+  void ontimechanged(int sec_updated) {
+    setState(() {
       timerController.remainingTime = sec_updated;
     });
   }
@@ -211,7 +210,6 @@ class _quiz_pageState extends State<quiz_page> {
       // showSnackBar(context, "$sec");
     }
 
-
     // ... Rest of your code ...
   }
 
@@ -229,24 +227,21 @@ class _quiz_pageState extends State<quiz_page> {
           showSnackBar(context,
               "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
           Timer(Duration(seconds: 1), () {
-            //!This functions works such that when context is popped from the options or other pages the value of 
-            //! index is updated by using the function onIndexChanges as defined above 
+            //!This functions works such that when context is popped from the options or other pages the value of
+            //! index is updated by using the function onIndexChanges as defined above
             //! and the remaining time is returned as it is or can be modified within the master_clue page
             navigateToOptions(0);
           });
-  
-        }
-        else if(index == 6){
+        } else if (index == 6) {
           showSnackBar(context,
               "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
           Timer(Duration(seconds: 1), () {
-            //!This functions works such that when context is popped from the options or other pages the value of 
-            //! index is updated by using the function onIndexChanges as defined above 
+            //!This functions works such that when context is popped from the options or other pages the value of
+            //! index is updated by using the function onIndexChanges as defined above
             //! and the remaining time is returned as it is or can be modified within the master_clue page
             navigateToOptions(1);
           });
-        }
-        else {
+        } else {
           showSnackBar(context, 'Clue Obtained !');
           setState(() {
             index += 1;
@@ -266,7 +261,7 @@ class _quiz_pageState extends State<quiz_page> {
               },
               body: jsonEncode([
                 {
-                  "email": widget.email,
+                  // "email": widget.email,
                   "level": index,
                   "time": double.parse(returnTime(mainSec - sec)),
                   // "minute": returnTime(mainSec - sec)[1],
@@ -278,11 +273,12 @@ class _quiz_pageState extends State<quiz_page> {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     // finalPage(img: Data.quizItems[quizIndex][index].link)));
-                    finalPage()));
+                    finalPage(sec: timerController.remainingTime,otp: widget.otp,index: index,)));
           } on SocketException catch (e) {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => errorPage(
-                    email: widget.email,
+                    // email: widget.email,
+                    otp: widget.otp,
                     level: index,
                     time: double.parse(returnTime(mainSec - sec)))));
           }
@@ -328,6 +324,43 @@ class _quiz_pageState extends State<quiz_page> {
   // }
 
   //disable screenshots
+  Future<void> add_score() async {
+    showSnackBar(context, formatedTime(sec));
+    final time_in_string = formatedTime(sec).toString();
+    final time = time_in_string.split(" ");
+    final time_final = time[0]+"."+time[2];
+
+
+    // showSnackBar(context, "$widget.otp");
+    // final otp_value = widget.otp.toString();
+    // showSnackBar(context, otp_value);
+    try {
+      http.Response resp = await http.post(
+        Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode([
+          {
+            "otp": widget.otp,
+            // "otp":"123456",
+            "level": index,
+            // "time": double.parse(returnTime(mainSec - sec)),
+            "time": time_final
+          }
+        ]),
+      );
+
+      showSnackBar(context, "$resp.status");
+    } on SocketException catch (e) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => errorPage(
+              otp: widget.otp,
+              level: index,
+              time: double.parse(returnTime(mainSec - sec)))));
+    }
+  }
+
 
   Future<void> disableCapture() async {
     //disable screenshots and record screen in current screen
@@ -337,9 +370,19 @@ class _quiz_pageState extends State<quiz_page> {
   // actual app code
   @override
   void initState() {
+    // showSnackBar(context, "$widget.otp");
     disableCapture();
     // countTimer();
-    timerController = TimerController(sec);
+    timerController = TimerController(sec, context, () {
+      showSnackBar(context, "Timer Finished! Closing the App");
+
+      //!API call
+      add_score();
+      Timer(Duration(seconds: 3), () {
+        // Navigator.of(context).pop();
+        showSnackBar(context, "Score Added");
+      });
+    });
     countTimer();
     print(widget.otp);
     // if (widget.otp == '') {
@@ -373,6 +416,7 @@ class _quiz_pageState extends State<quiz_page> {
 
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {

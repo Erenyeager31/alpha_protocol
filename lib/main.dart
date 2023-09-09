@@ -36,12 +36,13 @@ class MyApp extends StatelessWidget {
       title: 'Treasure Hunt',
       initialRoute: '/',
       routes: {
-        '/': (context) => home_page(),
-        '/quiz_page': (context) => quiz_page(otp: '1',email:'',),
-        // '/': (context) => quiz_page(otp: '1',email:'',),
+        // '/': (context) => home_page(),
+        '/quiz_page': (context) => quiz_page(otp: '1',),
+        // '/': (context) => quiz_page(otp: '1'),
         // '/': (context) => options(i: 0, ms_clue: 0, timerController: 0, onIndexChanged: (int){}, ontimechanged: (int){}),
         // '/final_page': (context) => finalPage(),
-        // '/': (context) => finalPage(),
+        // '/': (context) => finalPage(30,"123456",4),
+          '/':(context) => finalPage(sec: 30, otp: "123456", index: 4)
       },
     );
   }

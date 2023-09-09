@@ -45,7 +45,7 @@ class _home_pageState extends State<home_page> {
     //! This part calls the api and checks the otp , based on which a response is sent back to device
     http.Response resp = await http.post(
       // Uri.parse('https://alphaprotocol.herokuapp.com/ap/verotp'),
-      Uri.parse('https://d0ed-139-5-239-162.ngrok-free.app/ap/verotp'),
+      Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/verotp'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -58,8 +58,8 @@ class _home_pageState extends State<home_page> {
 
     //! Due to some reasons there is no response coming from the server
     // Navigator.of(context).pop();
-    print("yaha dekho $otp.text");
-
+    print("yaha dekho ${otp.text}");
+    final otp_value = otp.text.toString();
     // Navigator.pushNamed(
     //   context,
     //   '/quiz_page',
@@ -68,7 +68,7 @@ class _home_pageState extends State<home_page> {
     if(resp.statusCode==200){
       Navigator.of(context).pop();
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => quiz_page(otp:otp.text, email:email.text)));
+          builder: (context) => quiz_page(otp:otp_value,)));
 
     }else if(resp.statusCode==400){
       otp.clear();

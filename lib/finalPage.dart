@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
 import 'themes.dart' as Theme;
 import 'package:http/http.dart' as http;
+import 'data.dart' as data;
 
 class TimerController {
   late Timer timer;
@@ -111,7 +112,7 @@ class _finalPageState extends State<finalPage> {
   }
 
   Future<void> add_score() async {
-    showSnackBar(context, formatedTime(widget.sec));
+    // showSnackBar(context, formatedTime(widget.sec));
     final time_in_string = formatedTime(widget.sec).toString();
     final time = time_in_string.split(" ");
     final time_final = time[0] + "." + time[2];
@@ -126,7 +127,7 @@ class _finalPageState extends State<finalPage> {
         ]),
       );
 
-      showSnackBar(context, "$resp.status");
+      // showSnackBar(context, "$resp.status");
     } on SocketException catch (e) {
       // Navigator.of(context).push(MaterialPageRoute(
       //     builder: (context) => errorPage(
@@ -208,10 +209,13 @@ class _finalPageState extends State<finalPage> {
                   child: ElevatedButton(
                       style: Theme.button1,
                       onPressed: () {
-                        showSnackBar(context, riddle_answer.text);
-
-                        if (riddle_answer.text == quizItems[widget.quizIndex][widget.index]) {
+                        // showSnackBar(context, riddle_answer.text);
+                          // showSnackBar(context, widget.index.toString());
+                          // showSnackBar(context, widget.quizIndex.toString());
+                          // showSnackBar(context, data.quizItems[widget.quizIndex][widget.index].answer);
+                        if (riddle_answer.text == data.quizItems[widget.quizIndex][widget.index].answer) {
                           add_score();
+                          // showSnackBar(context, "hi");
                         }
                       },
                       child: Text("SUBMIT")),

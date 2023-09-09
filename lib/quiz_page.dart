@@ -274,7 +274,7 @@ class _quiz_pageState extends State<quiz_page> {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     // finalPage(img: Data.quizItems[quizIndex][index].link)));
-                    finalPage(sec: timerController.remainingTime,otp: widget.otp,index: index,quizIndex: quizIndex,)));
+                    finalPage(sec: timerController.remainingTime,otp: widget.otp,index: index+1,quizIndex: quizIndex,)));
           } on SocketException catch (e) {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => errorPage(

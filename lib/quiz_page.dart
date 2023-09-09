@@ -405,7 +405,8 @@ class _quiz_pageState extends State<quiz_page> {
       final random = Random();
       int min = 0;
       int max = 2;
-      quizIndex = min + random.nextInt(max - min + 1);
+      // quizIndex = min + random.nextInt(max - min + 1);
+      quizIndex = 0;
     } catch (e) {
       // Handle parsing errors or other exceptions here
       quizIndex = 0; // Set a default value

@@ -17,6 +17,7 @@ List<QuizData> demo = [
   QuizData("https://images.unsplash.com/photo-1524254725712-0d14ba4bbc17?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG5pbmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",'demo9'),
   QuizData("https://media.istockphoto.com/id/1324985401/photo/portrait-of-handsome-mature-man-isolated-over-yellow-background-stock-photo.webp?b=1&s=170667a&w=0&k=20&c=HDgsUALK3WSx1JSsNOxkzuQo_6k5OL7MNXuQ1vxNLOU=",'demo10'),
   QuizData("https://images.unsplash.com/photo-1549313861-33587f3d2956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2VpcmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",'demo11'),
+  QuizData("link", "123456")
 ];
 
 List<QuizData> q_data1 = [
@@ -63,7 +64,7 @@ List<QuizData> q_data3 = [
 
 List<QuizData> master_clue = [
   QuizData("https://res.cloudinary.com/docvlyucw/image/upload/v1662390258/Alpha%20Protocol/Intro/Intro.jpg","123456"),  
-  QuizData("https://res.cloudinary.com/docvlyucw/image/upload/v1662390258/Alpha%20Protocol/Intro/Intro.jpg","123456"),  
+  QuizData("https://res.cloudinary.com/docvlyucw/image/upload/v1662390258/Alpha%20Protocol/Intro/Intro.jpg","654321"),  
 ];
 
 List quizItems = [demo,q_data1,q_data2,q_data3,master_clue];

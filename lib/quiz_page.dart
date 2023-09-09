@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:alpha_protocol/options.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -195,7 +196,7 @@ class _quiz_pageState extends State<quiz_page> {
       MaterialPageRoute(
         builder: (context) => options(
           i: index,
-          ms_clue: 0,
+          ms_clue: ms_clue_index,
           timerController: sec,
           onIndexChanged: onIndexChanged,
           ontimechanged: ontimechanged,
@@ -273,7 +274,7 @@ class _quiz_pageState extends State<quiz_page> {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     // finalPage(img: Data.quizItems[quizIndex][index].link)));
-                    finalPage(sec: timerController.remainingTime,otp: widget.otp,index: index,)));
+                    finalPage(sec: timerController.remainingTime,otp: widget.otp,index: index,quizIndex: quizIndex,)));
           } on SocketException catch (e) {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => errorPage(
@@ -385,27 +386,26 @@ class _quiz_pageState extends State<quiz_page> {
     });
     countTimer();
     print(widget.otp);
-    // if (widget.otp == '') {
-    //   // showSnackBar(context, "here ${widget.i}");
-    //   // index = widget.i + 1;
-    //   widget.ms_clue++;
-    // }
-
     // quizIndex = int.parse(widget.otp[3]) -1 ;
 
     //! commented the above line and added the below code
     //! with error handling using chatgpt
     try {
-      if (widget.otp.length >= 4) {
-        quizIndex = int.parse(widget.otp[3]);
-        if (quizIndex < 0 || quizIndex > 3) {
-          // Handle out-of-range values if needed
-          quizIndex = 0; // Set a default value
-        }
-      } else {
-        // Handle cases where widget.otp doesn't have enough characters
-        quizIndex = 0; // Set a default value
-      }
+      // if (widget.otp.length >= 4) {
+      //   // quizIndex = int.parse(widget.otp[3]);
+      //   quizIndex = 0;
+      //   if (quizIndex < 0 || quizIndex > 3) {
+      //     // Handle out-of-range values if needed
+      //     quizIndex = 0; // Set a default value
+      //   }
+      // } else {
+      //   // Handle cases where widget.otp doesn't have enough characters
+      //   quizIndex = 0; // Set a default value
+      // }
+      final random = Random();
+      int min = 0;
+      int max = 2;
+      quizIndex = min + random.nextInt(max - min + 1);
     } catch (e) {
       // Handle parsing errors or other exceptions here
       quizIndex = 0; // Set a default value

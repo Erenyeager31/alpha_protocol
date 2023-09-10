@@ -120,7 +120,7 @@ class _finalPageState extends State<finalPage> {
     final otp_value = widget.otp.toString();
     try {
       http.Response resp = await http.post(
-        Uri.parse('https://9d71-106-209-201-123.ngrok-free.app/ap/addscr'),
+        Uri.parse('https://464f-2409-4081-1086-4dd-88c7-555-df37-6a7b.ngrok-free.app//ap/addscr'),
         // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -149,7 +149,7 @@ class _finalPageState extends State<finalPage> {
       showSnackBar(context, "Timer Finished! Redirecting Submitting the Score");
       add_score(1);
       Timer(Duration(seconds: 5), () {
-        Navigator.of(context).pop();
+        // Navigator.of(context).pop();
       });
     });
     countTimer();
@@ -214,12 +214,12 @@ class _finalPageState extends State<finalPage> {
                   child: ElevatedButton(
                       style: Theme.button1,
                       onPressed: () {
-                        // showSnackBar(context, riddle_answer.text);
-                        // showSnackBar(context, widget.index.toString());
-                        // showSnackBar(context, widget.quizIndex.toString());
-                        // showSnackBar(context, data.quizItems[widget.quizIndex][widget.index].answer);
+                        showSnackBar(context, riddle_answer.text);
+                        showSnackBar(context, widget.index.toString());
+                        showSnackBar(context, widget.quizIndex.toString());
+                        showSnackBar(context, data.quizItems[widget.quizIndex][widget.index].answer);
                         if (riddle_answer.text ==
-                            data.quizItems[widget.quizIndex][widget.index]
+                            data.quizItems[widget.quizIndex][widget.index+1]
                                 .answer) {
                           add_score(0);
                           // showSnackBar(context, "hi");

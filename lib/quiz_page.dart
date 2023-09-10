@@ -105,7 +105,7 @@ class _quiz_pageState extends State<quiz_page> {
   // Clues indexing
   String _selectedValue = "None";
   int index = 0;
-  int noQuiz = 10; //length -1
+  int noQuiz = 9; //length -1
   late int quizIndex;
   late TimerController timerController;
   //timer
@@ -247,6 +247,7 @@ class _quiz_pageState extends State<quiz_page> {
           setState(() {
             index += 1;
           });
+          showSnackBar(context, "$index");
         }
 
         // add logic for the options page here
@@ -311,7 +312,7 @@ class _quiz_pageState extends State<quiz_page> {
     try {
       http.Response resp = await http.post(
         //?temp link
-        Uri.parse('https://9d71-106-209-201-123.ngrok-free.app/ap/addscr'),
+        Uri.parse('https://464f-2409-4081-1086-4dd-88c7-555-df37-6a7b.ngrok-free.app//ap/addscr'),
         //?old link
         // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
         headers: <String, String>{

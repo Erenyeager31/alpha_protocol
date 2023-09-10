@@ -18,14 +18,16 @@ List<QuizData> master_clue_2 = [
 List<QuizData> quiz_data_1 = [
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353061/alpha_protocol_story1/Clue_1_Accountants_dept_numoon.png","D1S1Q1"),//clue 1
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353086/alpha_protocol_story1/Clue_2_Server_Room_ighjq9.png",'D1S1Q2'),//clue 2
-  QuizData("", "D1S1Q3"), //clue 3
-  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353102/alpha_protocol_story1/Clue_4_Workshop_cderan.png",'D1S1Q4'),//clue 4
-  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353097/alpha_protocol_story1/Clue_5_Library_fwly4t.png",'D1S1Q5'), //clue 5
-  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353098/alpha_protocol_story1/Clue_6_Canteen_xgsbrb.png",'D1S1Q6'),//clue 6
-  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353107/alpha_protocol_story1/Clue_7_Student_Council_erujb3.png",'D1S1Q7'), //clue 7
-  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353106/alpha_protocol_story1/Clue_8_Biometrics_rbin9r.png",'D1S1Q8'), //clue 8
-  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353088/alpha_protocol_story1/Clue_9_Tejas_Room_nnujhg.png",'D1S1Q9'), //clue 9
-  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353090/alpha_protocol_story1/Clue_10_Lost_and_found_fqxkut.png",'D1S1Q10'), //clue 10
+  // QuizData("", "D1S1Q3"), //clue 3
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353102/alpha_protocol_story1/Clue_4_Workshop_cderan.png",'D1S1Q3'),//clue 4
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353097/alpha_protocol_story1/Clue_5_Library_fwly4t.png",'D1S1Q4'), //clue 5
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353098/alpha_protocol_story1/Clue_6_Canteen_xgsbrb.png",'D1S1Q5'),//clue 6
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353107/alpha_protocol_story1/Clue_7_Student_Council_erujb3.png",'D1S1Q6'), //clue 7
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353106/alpha_protocol_story1/Clue_8_Biometrics_rbin9r.png",'D1S1Q7'), //clue 8
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353088/alpha_protocol_story1/Clue_9_Tejas_Room_nnujhg.png",'D1S1Q8'), //clue 9
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694353090/alpha_protocol_story1/Clue_10_Lost_and_found_fqxkut.png",'D1S1Q9'), //clue 10 index8
+  QuizData("When scanning D1S1Q100 user is directed to screen of final riddle with incremented index ", "D1S1Q10"),
+  QuizData("Here when the user inputs answer it is checked here and if right then punch score", "123456") //index 10
 ];
 
 List quizItems = [master_clue_1,master_clue_2,quiz_data_1];

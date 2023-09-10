@@ -110,7 +110,7 @@ class _quiz_pageState extends State<quiz_page> {
   late TimerController timerController;
   //timer
   int mainSec = 1800; //1800
-  int sec = 1800;
+  int sec = 30;
   late Timer timer;
 
   void onIndexChanged(int newIndex) {
@@ -251,38 +251,11 @@ class _quiz_pageState extends State<quiz_page> {
 
         // add logic for the options page here
         if (index == noQuiz) {
-          timerController.cancelTimer();
-          // Navigator.of(context).pop();
-          print(returnTime(mainSec - sec));
-          try {
-            http.Response resp = await http.post(
-              Uri.parse('https://alphaprotocol.herokuapp.com/ap/addscr'),
-              headers: <String, String>{
-                'Content-Type': 'application/json; charset=UTF-8',
-              },
-              body: jsonEncode([
-                {
-                  // "email": widget.email,
-                  "level": index,
-                  "time": double.parse(returnTime(mainSec - sec)),
-                  // "minute": returnTime(mainSec - sec)[1],
-                  // "second": returnTime(mainSec - sec)[0]
-                }
-              ]),
-            );
             showSnackBar(context, "Final Page");
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     // finalPage(img: Data.quizItems[quizIndex][index].link)));
                     finalPage(sec: timerController.remainingTime,otp: widget.otp,index: index+1,quizIndex: quizIndex,)));
-          } on SocketException catch (e) {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => errorPage(
-                    // email: widget.email,
-                    otp: widget.otp,
-                    level: index,
-                    time: double.parse(returnTime(mainSec - sec)))));
-          }
         }
       } else if (ScanResult == '-1') {
         print('test bro');
@@ -337,7 +310,10 @@ class _quiz_pageState extends State<quiz_page> {
     // showSnackBar(context, otp_value);
     try {
       http.Response resp = await http.post(
-        Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
+        //?temp link
+        Uri.parse('https://9d71-106-209-201-123.ngrok-free.app/ap/addscr'),
+        //?old link
+        // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -358,7 +334,7 @@ class _quiz_pageState extends State<quiz_page> {
           builder: (context) => errorPage(
               otp: widget.otp,
               level: index,
-              time: double.parse(returnTime(mainSec - sec)))));
+              time: time_final)));
     }
   }
 

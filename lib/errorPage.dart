@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class errorPage extends StatefulWidget {
   String otp;
   int level;
-  double time;
+  String time;
   // String email;
   errorPage(
       {
@@ -39,24 +39,25 @@ class _errorPageState extends State<errorPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  Future<void> test2() async {
+  Future<void> add_score() async {
     try {
       http.Response resp = await http.post(
-        Uri.parse('https://alphaprotocol.herokuapp.com/ap/addscr'),
+        Uri.parse('https://9d71-106-209-201-123.ngrok-free.app/ap/addscr'),
+        // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode([
           {
-            // "email": widget.email,
+            "otp": widget.otp,
             "level": widget.level,
-            "time" : widget.time
+            // "time": double.parse(returnTime(mainSec - sec)),
+            "time": widget.time
           }
         ]),
       );
 
-      showSnackBar(context, "Response Saved !");
-      Navigator.of(context).pop();
+      // showSnackBar(context, "$resp.status");
     } on SocketException catch (e) {
       showSnackBar(context, "Please be connected to the network");
     } on Error catch (e) {
@@ -81,7 +82,7 @@ class _errorPageState extends State<errorPage> {
                 child: ElevatedButton(
                     child: Text('Submit score details !'),
                     onPressed: () {
-                      test2();
+                      add_score();
                     })),
           ],
         ),

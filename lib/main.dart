@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'package:alpha_protocol/errorPage.dart';
 import 'package:alpha_protocol/finalPage.dart';
 import 'package:alpha_protocol/options.dart';
 import 'package:alpha_protocol/quiz_state.dart';
@@ -36,13 +37,12 @@ class MyApp extends StatelessWidget {
       title: 'Treasure Hunt',
       initialRoute: '/',
       routes: {
-        // '/': (context) => home_page(),
+        '/': (context) => home_page(),
         '/quiz_page': (context) => quiz_page(otp: '1',),
-        '/': (context) => quiz_page(otp: '1'),
+        // '/': (context) => quiz_page(otp: '123456'),
         // '/': (context) => options(i: 0, ms_clue: 0, timerController: 0, onIndexChanged: (int){}, ontimechanged: (int){}),
-        // '/final_page': (context) => finalPage(),
-        // '/': (context) => finalPage(30,"123456",4),
-          // '/':(context) => finalPage(sec: 30, otp: "123456", index: 4)
+        // '/': (context) => errorPage(otp: "111111", level: 14, time: "12.32"),
+        // '/':(context) => finalPage(sec:3, otp: "111111", index: 11,quizIndex: 0,)
       },
     );
   }

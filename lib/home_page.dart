@@ -45,7 +45,8 @@ class _home_pageState extends State<home_page> {
     //! This part calls the api and checks the otp , based on which a response is sent back to device
     http.Response resp = await http.post(
       // Uri.parse('https://alphaprotocol.herokuapp.com/ap/verotp'),
-      Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/verotp'),
+      Uri.parse('https://9d71-106-209-201-123.ngrok-free.app/ap/verotp'),
+      // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/verotp'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

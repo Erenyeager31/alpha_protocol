@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:alpha_protocol/data.dart';
+import 'package:alpha_protocol/errorPage.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,12 +40,11 @@ class finalPage extends StatefulWidget {
   int index;
   int quizIndex;
   // String mode;
-  finalPage({
-    required this.sec,
-    required this.otp,
-    required this.index,
-    required this.quizIndex
-  }) {
+  finalPage(
+      {required this.sec,
+      required this.otp,
+      required this.index,
+      required this.quizIndex}) {
     print("finalPage");
   }
   @override
@@ -111,29 +111,34 @@ class _finalPageState extends State<finalPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  Future<void> add_score() async {
+  Future<void> add_score(int difference) async {
     // showSnackBar(context, formatedTime(widget.sec));
     final time_in_string = formatedTime(widget.sec).toString();
     final time = time_in_string.split(" ");
     final time_final = time[0] + "." + time[2];
+    showSnackBar(context, widget.otp);
+    final otp_value = widget.otp.toString();
     try {
       http.Response resp = await http.post(
-        Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
+        Uri.parse('https://9d71-106-209-201-123.ngrok-free.app/ap/addscr'),
+        // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode([
-          {"otp": widget.otp, "level": 15, "time": time_final}
+          {"otp": otp_value,
+          "level": 15-difference,
+          "time": time_final}
         ]),
       );
 
       // showSnackBar(context, "$resp.status");
     } on SocketException catch (e) {
-      // Navigator.of(context).push(MaterialPageRoute(
-      //     builder: (context) => errorPage(
-      //         otp: widget.otp,
-      //         level: 15,
-      //         time: double.parse(returnTime(mainSec - sec)))));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => errorPage(
+              otp: otp_value,
+              level: 15-difference,
+              time: time_final)));
     }
   }
 
@@ -141,9 +146,9 @@ class _finalPageState extends State<finalPage> {
   void initState() {
     super.initState();
     timerController = TimerController(widget.sec, context, () {
-      showSnackBar(context, "Timer Finished! Redirecting Back to Quiz Page");
-
-      Timer(Duration(seconds: 3), () {
+      showSnackBar(context, "Timer Finished! Redirecting Submitting the Score");
+      add_score(1);
+      Timer(Duration(seconds: 5), () {
         Navigator.of(context).pop();
       });
     });
@@ -210,11 +215,13 @@ class _finalPageState extends State<finalPage> {
                       style: Theme.button1,
                       onPressed: () {
                         // showSnackBar(context, riddle_answer.text);
-                          // showSnackBar(context, widget.index.toString());
-                          // showSnackBar(context, widget.quizIndex.toString());
-                          // showSnackBar(context, data.quizItems[widget.quizIndex][widget.index].answer);
-                        if (riddle_answer.text == data.quizItems[widget.quizIndex][widget.index].answer) {
-                          add_score();
+                        // showSnackBar(context, widget.index.toString());
+                        // showSnackBar(context, widget.quizIndex.toString());
+                        // showSnackBar(context, data.quizItems[widget.quizIndex][widget.index].answer);
+                        if (riddle_answer.text ==
+                            data.quizItems[widget.quizIndex][widget.index]
+                                .answer) {
+                          add_score(0);
                           // showSnackBar(context, "hi");
                         }
                       },

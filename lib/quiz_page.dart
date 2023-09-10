@@ -110,7 +110,7 @@ class _quiz_pageState extends State<quiz_page> {
   late TimerController timerController;
   //timer
   int mainSec = 1800; //1800
-  int sec = 30;
+  int sec = 1800;
   late Timer timer;
 
   void onIndexChanged(int newIndex) {
@@ -382,7 +382,7 @@ class _quiz_pageState extends State<quiz_page> {
       int min = 0;
       int max = 2;
       // quizIndex = min + random.nextInt(max - min + 1);
-      quizIndex = 0;
+      quizIndex = 2;
     } catch (e) {
       // Handle parsing errors or other exceptions here
       quizIndex = 0; // Set a default value

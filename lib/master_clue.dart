@@ -6,6 +6,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image/network.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'data.dart' as Data;
 
@@ -118,7 +119,7 @@ class _master_clueState extends State<master_clue> {
           '#FFF44336', "Cancel", true, ScanMode.BARCODE);
       // if (!mounted) return;
       // final quizstate = Provider.of<quiz_state>(context);
-      if (ScanResult == Data.quizItems[4][widget.ms_clue].answer) {
+      if (ScanResult == Data.quizItems[widget.ms_clue][int.parse(widget.mode)].answer) {
         showSnackBar(context, "Correct");
 
         if (widget.mode == "0") {
@@ -169,38 +170,45 @@ class _master_clueState extends State<master_clue> {
         return false;
       },
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.qr_code_scanner),
+            onPressed: scanBarCode,
+        ),
         appBar: AppBar(
           leading: Icon(
             Icons.timer,
           ),
           title: Text(formatedTime(m_sec)),
         ),
-        body: Stack(
-          children: [
-            Center(
-              child: SingleChildScrollView(
+        body: Center(
+            child: SingleChildScrollView(
                 child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Image.network(widget.ms_clue),
-                      Text("Master Clue ${widget.ms_clue + 1}"),
-                    ],
-                  ),
+                    child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text('Vector has sent you a lead...'),
                 ),
-              ),
-            ),
-            Positioned(
-              bottom: 16, // Adjust the bottom margin as needed
-              right: 16, // Adjust the right margin as needed
-              child: FloatingActionButton(
-                onPressed: scanBarCode,
-                child: Icon(Icons.qr_code_scanner),
-              ),
-            ),
-          ],
-        ),
+                InteractiveViewer(
+                    child: Padding(
+                  padding: EdgeInsets.all(12.0),
+                  // child : Image.network(Data.quizItems[0][index].link)
+                  child: new Image(
+                    image: new NetworkImageWithRetry(
+                        Data.quizItems[widget.ms_clue][int.parse(widget.mode)].link),
+                  ),
+                  // child: CachedNetworkImage(
+                  //   imageUrl: Data.quizItems[quizIndex][index].link,
+                  //   placeholder: (context, url) => CircularProgressIndicator(),
+                  //   errorWidget: (context, url, error) => Icon(Icons.error),
+                  // ),
+                )),
+                SizedBox(height: 75)
+              ],
+            ))),
+          )
       ),
     );
   }

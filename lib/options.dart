@@ -94,6 +94,14 @@ class _optionsState extends State<options> {
         return false;
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Icon(Icons.warning_rounded),
+              Text("MASTER CLUE ALTERNATIVE")
+            ],
+          ),
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -101,14 +109,40 @@ class _optionsState extends State<options> {
             Container(
                 margin: EdgeInsets.only(bottom: 100, top: 100),
                 child: Text("Please Select an Option")),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("Skip 2 Clues"),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: CustomRadio<String>(
-                    value: "0",
+            Padding(
+              padding: const EdgeInsets.only(left: 10,right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(style:TextStyle(
+                    fontSize: 17
+                  ),"Skip 2 Clues"),
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: CustomRadio<String>(
+                      value: "0",
+                      groupValue: _selectedValue,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedValue = value!;
+                        });
+                        // showSnackBar(context, value!);
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10,right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(style:TextStyle(
+                    fontSize: 17
+                  ), "Add 4 minutes and skip 1 clue"),
+                  CustomRadio<String>(
+                    value: "1",
                     groupValue: _selectedValue,
                     onChanged: (value) {
                       setState(() {
@@ -117,43 +151,32 @@ class _optionsState extends State<options> {
                       // showSnackBar(context, value!);
                     },
                   ),
-                )
-              ],
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("Add Timer"),
-                CustomRadio<String>(
-                  value: "1",
-                  groupValue: _selectedValue,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedValue = value!;
-                    });
-                    // showSnackBar(context, value!);
-                  },
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text("None"),
-                Container(
-                  margin: EdgeInsets.only(left: 55),
-                  child: CustomRadio<String>(
-                    value: "2",
-                    groupValue: _selectedValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedValue = value!;
-                      });
-                      // showSnackBar(context, value!);
-                    },
-                  ),
-                )
-              ],
+            Padding(
+              padding: const EdgeInsets.only(left: 10,right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(style:TextStyle(
+                    fontSize: 17
+                  ),"None"),
+                  Container(
+                    margin: EdgeInsets.only(left: 55),
+                    child: CustomRadio<String>(
+                      value: "2",
+                      groupValue: _selectedValue,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedValue = value!;
+                        });
+                        // showSnackBar(context, value!);
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10,right: 10),
@@ -170,12 +193,12 @@ class _optionsState extends State<options> {
                     color: Colors.red,
                     fontSize: 15,
                   )
-                  ,"Note : If you Fail to solve Master Clue within 4 minutes, you will be Penalized with 4 Minutes and return back to quiz"),
+                  ,"Note : If you Fail to solve Master Clue within 4 minutes, you will be Penalized with 2 Minutes and return back to quiz"),
                 ),
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 200),
+              margin: const EdgeInsets.only(top: 120),
               child: ElevatedButton(
                 style: Theme.button1,
                 onPressed: () {

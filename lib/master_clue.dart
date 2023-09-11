@@ -36,6 +36,7 @@ class TimerController {
 }
 
 class master_clue extends StatefulWidget {
+  int quizIndex;
   int ms_clue;
   int sec;
   final int index;
@@ -43,7 +44,9 @@ class master_clue extends StatefulWidget {
   final Function(int) ontimechanged;
   String mode;
   master_clue(
-      {required this.ms_clue,
+      {
+      required this.quizIndex,
+      required this.ms_clue,
       required this.sec,
       required this.index,
       required this.onIndexChanged,
@@ -119,7 +122,7 @@ class _master_clueState extends State<master_clue> {
           '#FFF44336', "Cancel", true, ScanMode.BARCODE);
       // if (!mounted) return;
       // final quizstate = Provider.of<quiz_state>(context);
-      if (ScanResult == Data.quizItems[widget.ms_clue][int.parse(widget.mode)].answer) {
+      if (ScanResult == Data.quizItems[widget.quizIndex + widget.ms_clue][int.parse(widget.mode)].answer) {
         showSnackBar(context, "Correct");
 
         if (widget.mode == "0") {
@@ -197,7 +200,7 @@ class _master_clueState extends State<master_clue> {
                   // child : Image.network(Data.quizItems[0][index].link)
                   child: new Image(
                     image: new NetworkImageWithRetry(
-                        Data.quizItems[widget.ms_clue][int.parse(widget.mode)].link),
+                        Data.quizItems[widget.quizIndex + widget.ms_clue][int.parse(widget.mode)].link),
                   ),
                   // child: CachedNetworkImage(
                   //   imageUrl: Data.quizItems[quizIndex][index].link,

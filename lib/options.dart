@@ -53,12 +53,14 @@ class CustomRadio<T> extends StatelessWidget {
 // ignore: must_be_immutable
 class options extends StatefulWidget {
   int i;
+  int quizIndex;
   int ms_clue;
   final int timerController;
   final Function(int) onIndexChanged;
   final Function(int) ontimechanged;
   options(
       {required this.i,
+      required this.quizIndex,
       required this.ms_clue,
       required this.timerController,
       required this.onIndexChanged,
@@ -98,7 +100,7 @@ class _optionsState extends State<options> {
           title: Row(
             children: [
               Icon(Icons.warning_rounded),
-              Text("MASTER CLUE ALTERNATIVE")
+              Text("MASTER CLUE")
             ],
           ),
         ),
@@ -190,7 +192,7 @@ class _optionsState extends State<options> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10,right: 10),
                   child: Text(style: TextStyle(
-                    color: Colors.red,
+                    color: const Color.fromARGB(255, 0, 0, 0),
                     fontSize: 15,
                   )
                   ,"Note : If you Fail to solve Master Clue within 4 minutes, you will be Penalized with 2 Minutes and return back to quiz"),
@@ -206,6 +208,7 @@ class _optionsState extends State<options> {
                   if (_selectedValue == '0') {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => master_clue(
+                              quizIndex:widget.quizIndex,
                               ms_clue: widget.ms_clue,
                               sec: widget.timerController,
                               index: widget.i,
@@ -216,6 +219,7 @@ class _optionsState extends State<options> {
                   } else if (_selectedValue == '1') {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => master_clue(
+                              quizIndex:widget.quizIndex,
                               ms_clue: widget.ms_clue,
                               sec: widget.timerController,
                               index: widget.i,

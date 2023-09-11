@@ -103,7 +103,7 @@ class _finalPageState extends State<finalPage> {
           fontFamily: GoogleFonts.varela().fontFamily,
         ),
       ),
-      backgroundColor: Color(0xff64E54C),
+      backgroundColor: Color.fromARGB(255, 65, 215, 27),
       behavior: SnackBarBehavior.floating,
       margin: EdgeInsets.all(50),
       elevation: 20,
@@ -116,18 +116,18 @@ class _finalPageState extends State<finalPage> {
     final time_in_string = formatedTime(widget.sec).toString();
     final time = time_in_string.split(" ");
     final time_final = time[0] + "." + time[2];
-    showSnackBar(context, widget.otp);
+    // showSnackBar(context, widget.otp);
     final otp_value = widget.otp.toString();
     try {
       http.Response resp = await http.post(
-        Uri.parse('https://464f-2409-4081-1086-4dd-88c7-555-df37-6a7b.ngrok-free.app//ap/addscr'),
+        Uri.parse('https://3b0d-139-5-239-162.ngrok-free.app/ap/addscr'),
         // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode([
           {"otp": otp_value,
-          "level": 15-difference,
+          "level": 10-difference,
           "time": time_final}
         ]),
       );
@@ -140,6 +140,8 @@ class _finalPageState extends State<finalPage> {
               level: 15-difference,
               time: time_final)));
     }
+        // Navigator.of(context).pop();
+        exit(0);
   }
 
   @override
@@ -214,13 +216,14 @@ class _finalPageState extends State<finalPage> {
                   child: ElevatedButton(
                       style: Theme.button1,
                       onPressed: () {
-                        showSnackBar(context, riddle_answer.text);
-                        showSnackBar(context, widget.index.toString());
-                        showSnackBar(context, widget.quizIndex.toString());
-                        showSnackBar(context, data.quizItems[widget.quizIndex][widget.index].answer);
+                        // showSnackBar(context, riddle_answer.text);
+                        // showSnackBar(context, widget.index.toString());
+                        // showSnackBar(context, widget.quizIndex.toString());
+                        // showSnackBar(context, data.quizItems[widget.quizIndex][widget.index].answer);
                         if (riddle_answer.text ==
-                            data.quizItems[widget.quizIndex][widget.index+1]
+                            data.quizItems[widget.quizIndex][widget.index]
                                 .answer) {
+                                  showSnackBar(context, "Congratulations you have solved the Riddle !");
                           add_score(0);
                           // showSnackBar(context, "hi");
                         }

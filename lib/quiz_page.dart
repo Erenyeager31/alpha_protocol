@@ -105,7 +105,7 @@ class _quiz_pageState extends State<quiz_page> {
   // Clues indexing
   String _selectedValue = "None";
   int index = 0;
-  int noQuiz = 9; //length -1
+  int noQuiz = 10; //length -1
   late int quizIndex;
   late TimerController timerController;
   //timer
@@ -196,6 +196,7 @@ class _quiz_pageState extends State<quiz_page> {
       MaterialPageRoute(
         builder: (context) => options(
           i: index,
+          quizIndex:quizIndex,
           ms_clue: ms_clue_index,
           timerController: sec,
           onIndexChanged: onIndexChanged,
@@ -231,23 +232,23 @@ class _quiz_pageState extends State<quiz_page> {
             //!This functions works such that when context is popped from the options or other pages the value of
             //! index is updated by using the function onIndexChanges as defined above
             //! and the remaining time is returned as it is or can be modified within the master_clue page
-            navigateToOptions(0);
+            navigateToOptions(1);
           });
-        } else if (index == 6) {
+        } else if (index == 5) {
           showSnackBar(context,
               "Congrats you have solved ${index + 1} clues and are now Eligible for Alternatives");
           Timer(Duration(seconds: 1), () {
             //!This functions works such that when context is popped from the options or other pages the value of
             //! index is updated by using the function onIndexChanges as defined above
             //! and the remaining time is returned as it is or can be modified within the master_clue page
-            navigateToOptions(1);
+            navigateToOptions(2);
           });
         } else {
           showSnackBar(context, 'Clue Obtained !');
           setState(() {
             index += 1;
           });
-          showSnackBar(context, "$index");
+          // showSnackBar(context, "$index");
         }
 
         // add logic for the options page here
@@ -312,7 +313,7 @@ class _quiz_pageState extends State<quiz_page> {
     try {
       http.Response resp = await http.post(
         //?temp link
-        Uri.parse('https://464f-2409-4081-1086-4dd-88c7-555-df37-6a7b.ngrok-free.app//ap/addscr'),
+        Uri.parse('https://3b0d-139-5-239-162.ngrok-free.app/ap/addscr'),
         //?old link
         // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
         headers: <String, String>{
@@ -358,7 +359,11 @@ class _quiz_pageState extends State<quiz_page> {
       add_score();
       Timer(Duration(seconds: 3), () {
         // Navigator.of(context).pop();
-        showSnackBar(context, "Score Added");
+        showSnackBar(context, "Score Added ! CLosing the App");
+      });
+      Timer(Duration(seconds: 2), () {
+        // Navigator.of(context).pop();
+        exit(0);
       });
     });
     countTimer();
@@ -383,7 +388,7 @@ class _quiz_pageState extends State<quiz_page> {
       int min = 0;
       int max = 2;
       // quizIndex = min + random.nextInt(max - min + 1);
-      quizIndex = 2;
+      quizIndex = 0;
     } catch (e) {
       // Handle parsing errors or other exceptions here
       quizIndex = 0; // Set a default value

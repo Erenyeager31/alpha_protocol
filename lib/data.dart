@@ -5,18 +5,69 @@ class QuizData {
   QuizData(this.link, this.answer);
 }
 
-List<QuizData> master_clue_1 = [
+List<QuizData> quiz_data_1 = [
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405457/alpha_protocol_story1/Clue_1_Accountants_dept_lm1ycs.png","D1S1Q1"),//clue 1
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405480/alpha_protocol_story1/Clue_2_Server_Room_zabqnz.png",'D1S1Q2'),//clue 2
+  //master clue 1
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405452/alpha_protocol_story1/Clue_3_Workshop_zpnf76.png",'D1S1Q3'),//clue 3
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405452/alpha_protocol_story1/Clue_4_Library_bqpw0p.png",'D1S1Q4'), //clue 4
+  // if skip start here
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405469/alpha_protocol_story1/Clue_5_Canteen_ci9tt6.png",'D1S1Q5'),//clue 5
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405457/alpha_protocol_story1/Clue_6_Biometrics_fuvz0g.png",'D1S1Q6'), //clue 6
+  //master clue 2
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405434/alpha_protocol_story1/Clue_7_Tejas_Room_knooct.png",'D1S1Q7'), //clue 7
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405462/alpha_protocol_story1/Clue_8_Lost_and_found_r2w2fy.png",'D1S1Q8'), //clue 8
+  //come here after skip
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405477/alpha_protocol_story1/Clue_9_Room_No_412_pgdokm.png",'D1S1Q9'), //clue 9 index8
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405431/alpha_protocol_story1/Clue_10_419_drenls.jpg",'D1S1Q10'), //clue 10 index9
+  QuizData("When scanning D1S1Q111 user is directed to screen of final riddle with incremented index ", "D1S1Q11"), //index 10 -> this should be encrypted text for riddles
+  QuizData("Here when the user inputs answer it is checked here and if right then punch score", "123456") //index 11
+];
+
+List<QuizData> story_1_ms_1 = [
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405477/alpha_protocol_story1/Master_Clue_1_Skip_2_Clues_Dark_Room_rv1lwz.png","D1S1M1_1"),  //master_clue_1 1
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405476/alpha_protocol_story1/Master_Clue_1__Skip_one_clue_NSS_Room_paul_sir_abzyrd.png","D1S1M1_2"),  //master_clue_1 2
 ];
 
-List<QuizData> master_clue_2 = [
+List<QuizData> story_1_ms_2 = [
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405439/alpha_protocol_story1/Master_Clue_2_Skip_two_clues_SFITAA_room_gfz8ik.png","D1S1M2_1"),  //master_clue_2 1
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405472/alpha_protocol_story1/Master_Clue_2__skip_one_clue__bike_parking_binary_code_kjqvwa.png","D1S1M2_2"),  //master_clue_2 2
 ];
 
-List<QuizData> quiz_data_1 = [
-  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405457/alpha_protocol_story1/Clue_1_Accountants_dept_lm1ycs.png","D1S1Q1"),//clue 1
+//! Story 2
+
+List<QuizData> quiz_data_2 = [
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532584/alpha_protocol%20story2/Clue_1_Security_cabin_eztkez.png","D1S1Q1"),//clue 1
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532551/alpha_protocol%20story2/Clue2_room_no_314_zbmvlq.png",'D1S1Q2'),//clue 2
+  //master clue 1
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532590/alpha_protocol%20story2/clue_3_room_no_128_fxkq8z.png",'D1S1Q3'),//clue 3
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532584/alpha_protocol%20story2/clue_4_room_no_423_ypwgst.png",'D1S1Q4'), //clue 4
+  // if skip start here
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532582/alpha_protocol%20story2/clue_5_parking_lot_l61ckw.png",'D1S1Q5'),//clue 5
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532587/alpha_protocol%20story2/clue_6_Lift_o00bax.png",'D1S1Q6'), //clue 6
+  //master clue 2
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532560/alpha_protocol%20story2/clue_7__room_no_520_s1tv3b.png",'D1S1Q7'), //clue 7
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532562/alpha_protocol%20story2/clue_8_ohms_law__room_no_529_pe4glp.png",'D1S1Q8'), //clue 8
+  //come here after skip
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532561/alpha_protocol%20story2/clue_9_Security_room_i1z1iu.png",'D1S1Q9'), //clue 9 index8
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532802/alpha_protocol%20story2/clue_10_419_tkrdad.png",'D1S1Q10'), //clue 10 index9
+  QuizData("When scanning D1S1Q111 user is directed to screen of final riddle with incremented index ", "D1S1Q11"), //index 10
+  QuizData("Here when the user inputs answer it is checked here and if right then punch score", "123456") //index 11
+];
+
+List<QuizData> story_2_ms_1 = [
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532538/alpha_protocol%20story2/master_clue_Skip_2_clue_irwibh.png","D1S1M1_1"),  //master_clue_1 1
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532559/alpha_protocol%20story2/Master_clue_skip_1_clue_fekqfu.png","D1S1M1_2"),  //master_clue_1 2
+];
+
+List<QuizData> story_2_ms_2 = [
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532551/alpha_protocol%20story2/masterclue_skip_2_clue_jacket_dlifs4.png","D1S1M2_1"),  //master_clue_2 1
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694532563/alpha_protocol%20story2/master_clue_skip_1_clue_room_no_631_otid1e.png","D1S1M2_2"),  //master_clue_2 2
+];
+
+List<QuizData> quiz_data_3 = [
+  QuizData("https://tse4.mm.bing.net/th?id=OIP.DMEcpoaIc_A9nZzFAH3XCwHaHZ&pid=Api&P=0&h=180","D1S1Q1"),//clue 1
+  // QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405457/alpha_protocol_story1/Clue_1_Accountants_dept_lm1ycs.png","D1S1Q1"),//clue 1
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405480/alpha_protocol_story1/Clue_2_Server_Room_zabqnz.png",'D1S1Q2'),//clue 2
   //master clue 1
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405452/alpha_protocol_story1/Clue_3_Workshop_zpnf76.png",'D1S1Q3'),//clue 3
@@ -34,7 +85,18 @@ List<QuizData> quiz_data_1 = [
   QuizData("Here when the user inputs answer it is checked here and if right then punch score", "123456") //index 11
 ];
 
-List quizItems = [quiz_data_1,master_clue_1,master_clue_2];
+List<QuizData> story_3_ms_1 = [
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405477/alpha_protocol_story1/Master_Clue_1_Skip_2_Clues_Dark_Room_rv1lwz.png","D1S1M1_1"),  //master_clue_1 1
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405476/alpha_protocol_story1/Master_Clue_1__Skip_one_clue_NSS_Room_paul_sir_abzyrd.png","D1S1M1_2"),  //master_clue_1 2
+];
+
+List<QuizData> story_3_ms_2 = [
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405439/alpha_protocol_story1/Master_Clue_2_Skip_two_clues_SFITAA_room_gfz8ik.png","D1S1M2_1"),  //master_clue_2 1
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694405472/alpha_protocol_story1/Master_Clue_2__skip_one_clue__bike_parking_binary_code_kjqvwa.png","D1S1M2_2"),  //master_clue_2 2
+];
+
+List quizItems = [quiz_data_1,story_1_ms_1,story_1_ms_2,quiz_data_2,story_2_ms_1,story_2_ms_2,quiz_data_3,story_3_ms_1,story_3_ms_2];
+// Main index of story --> (0  , 3 , 6)
 
 
 // List<QuizData> q_data1 = [

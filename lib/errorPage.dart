@@ -42,7 +42,7 @@ class _errorPageState extends State<errorPage> {
   Future<void> add_score() async {
     try {
       http.Response resp = await http.post(
-        Uri.parse('https://3b0d-139-5-239-162.ngrok-free.app/ap/addscr'),
+        Uri.parse('https://codexsfit.pythonanywhere.com/ap/addscr'),
         // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

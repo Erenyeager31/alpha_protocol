@@ -103,6 +103,8 @@ class CustomRadio<T> extends StatelessWidget {
 
 class _quiz_pageState extends State<quiz_page> {
   // Clues indexing
+  // List? story_index = List.filled(3, null, growable: false);
+  var story_index = [0,3,6];
   String _selectedValue = "None";
   int index = 0;
   int noQuiz = 10; //length -1
@@ -110,7 +112,7 @@ class _quiz_pageState extends State<quiz_page> {
   late TimerController timerController;
   //timer
   int mainSec = 1800; //1800
-  int sec = 1800;
+  int sec = 2100;
   late Timer timer;
 
   void onIndexChanged(int newIndex) {
@@ -313,7 +315,7 @@ class _quiz_pageState extends State<quiz_page> {
     try {
       http.Response resp = await http.post(
         //?temp link
-        Uri.parse('https://3b0d-139-5-239-162.ngrok-free.app/ap/addscr'),
+        Uri.parse('https://codexsfit.pythonanywhere.com/ap/addscr'),
         //?old link
         // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
         headers: <String, String>{
@@ -384,11 +386,17 @@ class _quiz_pageState extends State<quiz_page> {
       //   // Handle cases where widget.otp doesn't have enough characters
       //   quizIndex = 0; // Set a default value
       // }
-      final random = Random();
-      int min = 0;
-      int max = 2;
-      // quizIndex = min + random.nextInt(max - min + 1);
-      quizIndex = 0;
+      // final random = Random();
+      // int min = 0;
+      // int max = 2;
+      // // quizIndex = min + random.nextInt(max - min + 1);
+      // final random_index = min + random.nextInt(max-min + 2);
+      // quizIndex = story_index[random_index];
+    // quizIndex = int.parse(widget.otp[3]) -1 ;
+      final value = int.parse(widget.otp[5]);
+      print(value);
+      quizIndex = value;
+      print(quizIndex);
     } catch (e) {
       // Handle parsing errors or other exceptions here
       quizIndex = 0; // Set a default value

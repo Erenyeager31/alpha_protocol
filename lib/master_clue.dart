@@ -59,7 +59,7 @@ class master_clue extends StatefulWidget {
 }
 
 class _master_clueState extends State<master_clue> {
-  int m_sec = 240;
+  int m_sec = 300;
   late TimerController timerController;
 
   formatedTime(time) {
@@ -158,7 +158,7 @@ class _master_clueState extends State<master_clue> {
 
       Timer(Duration(seconds: 3), () {
         widget.onIndexChanged(widget.index + 1);
-        widget.ontimechanged(widget.sec - 240);
+        widget.ontimechanged(widget.sec - 120);
         Navigator.of(context).pop();
       });
     });

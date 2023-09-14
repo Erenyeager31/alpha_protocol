@@ -195,7 +195,7 @@ class _optionsState extends State<options> {
                     color: const Color.fromARGB(255, 0, 0, 0),
                     fontSize: 15,
                   )
-                  ,"Note : If you Fail to solve Master Clue within 4 minutes, you will be Penalized with 2 Minutes and return back to quiz"),
+                  ,"Note : If you Fail to solve Master Clue within 5 minutes, you will be Penalized with 2 Minutes and return back to quiz"),
                 ),
               ),
             ),

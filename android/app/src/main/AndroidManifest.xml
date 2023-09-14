@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="alpha_protocol"
+        android:label="Alpha Protocol 2.0"
         android:name="${applicationName}"
         android:icon="@mipmap/codex">
         <activity

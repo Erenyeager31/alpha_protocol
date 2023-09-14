@@ -108,7 +108,7 @@ class _home_pageState extends State<home_page> {
             AnimatedTextKit(
               repeatForever: true,
               animatedTexts: [
-                TypewriterAnimatedText('Into the shoes of a sleeper agent...',
+                TypewriterAnimatedText('Trust No One..',
                     textStyle: const TextStyle(fontSize: 20),
                     cursor: '|',
                     speed: const Duration(milliseconds: 90)),

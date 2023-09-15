@@ -72,7 +72,7 @@ List<QuizData> quiz_data_3 = [
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694688099/alpha_protocol%20story3/clue_3_reception_desk_q6yalj.jpg",'ugWs33'),//clue 3
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694688098/alpha_protocol%20story3/clue_4_library_qtpu7v.jpg",'XUNs43'), //clue 4
   // if skip start here
-  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694688098/alpha_protocol%20story3/clue_5_student_council_rkglfa.jpg",'1YPs5'),//clue 5
+  QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694688098/alpha_protocol%20story3/clue_5_student_council_rkglfa.jpg",'1YPs53'),//clue 5
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694688101/alpha_protocol%20story3/Clue_6_xerox_kethmd.jpg",'7VKs63'), //clue 6
   //master clue 2
   QuizData("https://res.cloudinary.com/dxo9b7e2h/image/upload/v1694688099/alpha_protocol%20story3/clue_7_tejas_again_sdoobf.jpg",'JKOs73'), //clue 7

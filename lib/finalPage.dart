@@ -120,7 +120,7 @@ class _finalPageState extends State<finalPage> {
     final otp_value = widget.otp.toString();
     try {
       http.Response resp = await http.post(
-        Uri.parse('https://codexsfit.pythonanywhere.com/ap/addscr'),
+        Uri.parse('http://ec2-16-171-144-143.eu-north-1.compute.amazonaws.com:8000/ap/addscr'),
         // Uri.parse('https://1b6c-139-5-239-162.ngrok-free.app/ap/addscr'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -226,6 +226,9 @@ class _finalPageState extends State<finalPage> {
                                   showSnackBar(context, "Congratulations you have solved the Riddle !");
                           add_score(0);
                           // showSnackBar(context, "hi");
+                        }
+                        else{
+                          showSnackBar(context, "Incorrect Answer");
                         }
                       },
                       child: Text("SUBMIT")),
